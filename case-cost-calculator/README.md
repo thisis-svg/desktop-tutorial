@@ -51,13 +51,31 @@ case-cost-calculator/
       └─ CalculatorScreen.tsx     # メイン画面
 ```
 
-## 起動
+## 起動・動作確認
+
+事前に [Node.js](https://nodejs.org/)（LTS）をインストールしておきます。
 
 ```bash
 cd case-cost-calculator
 npm install
-npm start          # QR を Expo Go アプリで読み取り
-# npm run ios / npm run android
+```
+
+### 方法A: ブラウザで確認（一番手軽）
+
+```bash
+npm run web
+```
+ブラウザが開き、PC 上でそのまま操作して合計計算を確認できます。
+
+### 方法B: スマホ実機で確認（Expo Go）
+
+1. スマホに「**Expo Go**」アプリをインストール（App Store / Google Play）
+2. PC で `npm start` を実行
+3. 表示された QR コードを Expo Go（Android）／カメラ（iOS）で読み取る
+
+```bash
+npm start
+# npm run ios / npm run android（各シミュレータが必要）
 ```
 
 ## 検証
