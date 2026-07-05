@@ -1,0 +1,33 @@
+{
+  "updated_at": "初回更新待ち(サンプルデータ)",
+  "period_days": 7,
+  "source": "TikTok Creative Center",
+  "is_sample": true,
+  "regions": {
+    "JP": {
+      "hashtags": [
+        { "rank": 1, "name": "おすすめ", "posts": 125000, "views": 890000000, "url": "https://www.tiktok.com/tag/おすすめ" },
+        { "rank": 2, "name": "夏コーデ", "posts": 45000, "views": 230000000, "url": "https://www.tiktok.com/tag/夏コーデ" },
+        { "rank": 3, "name": "簡単レシピ", "posts": 38000, "views": 180000000, "url": "https://www.tiktok.com/tag/簡単レシピ" },
+        { "rank": 4, "name": "踊ってみた", "posts": 29000, "views": 150000000, "url": "https://www.tiktok.com/tag/踊ってみた" },
+        { "rank": 5, "name": "vlog", "posts": 21000, "views": 98000000, "url": "https://www.tiktok.com/tag/vlog" }
+      ],
+      "songs": [
+        { "rank": 1, "title": "サンプル楽曲A", "author": "アーティストA", "url": "https://www.tiktok.com/search?q=サンプル楽曲A", "cover": "" },
+        { "rank": 2, "title": "サンプル楽曲B", "author": "アーティストB", "url": "https://www.tiktok.com/search?q=サンプル楽曲B", "cover": "" },
+        { "rank": 3, "title": "サンプル楽曲C", "author": "アーティストC", "url": "https://www.tiktok.com/search?q=サンプル楽曲C", "cover": "" }
+      ]
+    },
+    "US": {
+      "hashtags": [
+        { "rank": 1, "name": "fyp", "posts": 890000, "views": 5200000000, "url": "https://www.tiktok.com/tag/fyp" },
+        { "rank": 2, "name": "summervibes", "posts": 320000, "views": 1800000000, "url": "https://www.tiktok.com/tag/summervibes" },
+        { "rank": 3, "name": "grwm", "posts": 210000, "views": 950000000, "url": "https://www.tiktok.com/tag/grwm" }
+      ],
+      "songs": [
+        { "rank": 1, "title": "Sample Song A", "author": "Artist A", "url": "https://www.tiktok.com/search?q=Sample%20Song%20A", "cover": "" },
+        { "rank": 2, "title": "Sample Song B", "author": "Artist B", "url": "https://www.tiktok.com/search?q=Sample%20Song%20B", "cover": "" }
+      ]
+    }
+  }
+}

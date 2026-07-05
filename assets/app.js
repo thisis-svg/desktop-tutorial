@@ -103,6 +103,16 @@
       state.data = data;
       updatedEl.textContent = "最終更新: " + (data.updated_at || "不明");
       if (data.is_sample) sampleBanner.hidden = false;
+      // 楽曲データがどの地域にも無い場合はタブごと隠す
+      var regions = data.regions || {};
+      var hasSongs = Object.keys(regions).some(function (code) {
+        return (regions[code].songs || []).length > 0;
+      });
+      if (!hasSongs) {
+        var songsChip = document.querySelector('.chip[data-tab="songs"]');
+        if (songsChip) songsChip.style.display = "none";
+        if (state.tab === "songs") state.tab = "hashtags";
+      }
       renderList();
     })
     .catch(function () {
