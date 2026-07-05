@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTokトレンド速報 | 毎日更新の急上昇ハッシュタグ&楽曲</title>
+  <meta name="description" content="TikTokで今バズっている急上昇ハッシュタグと人気楽曲を毎日自動更新。投稿ネタ探し・トレンドリサーチに。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo"><span class="logo-tik">Tik</span><span class="logo-tok">Tok</span>トレンド速報</h1>
+      <p class="tagline">今バズってるハッシュタグ&楽曲を毎日自動更新</p>
+      <p class="updated" id="updated-at">読み込み中…</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <div id="sample-banner" class="sample-banner" hidden>
+      ⚠️ 現在はサンプルデータを表示しています。毎朝6時(日本時間)の自動更新後、実データに切り替わります。
+    </div>
+
+    <nav class="controls" aria-label="表示切り替え">
+      <div class="control-group" role="tablist" aria-label="地域">
+        <button class="chip active" data-region="JP">🇯🇵 日本</button>
+        <button class="chip" data-region="US">🇺🇸 アメリカ</button>
+      </div>
+      <div class="control-group" role="tablist" aria-label="カテゴリ">
+        <button class="chip active" data-tab="hashtags"># ハッシュタグ</button>
+        <button class="chip" data-tab="songs">♪ 楽曲</button>
+      </div>
+    </nav>
+
+    <main>
+      <section id="trend-list" class="trend-list" aria-live="polite"></section>
+      <p class="source-note">データ出典: <a href="https://ads.tiktok.com/business/creativecenter/pc/ja" target="_blank" rel="noopener">TikTok Creative Center</a>(過去7日間の人気ランキング)</p>
+    </main>
+
+    <aside class="affiliate-section" id="affiliate-section" hidden>
+      <h2 class="section-title">【PR】おすすめアイテム・サービス</h2>
+      <p class="pr-note">当サイトはアフィリエイト広告を利用しています。</p>
+      <div class="affiliate-grid" id="affiliate-grid"></div>
+    </aside>
+
+    <section class="tips-section">
+      <h2 class="section-title">💡 投稿への活用ヒント</h2>
+      <ul class="tips-list">
+        <li>急上昇ハッシュタグは<strong>ランクインした直後</strong>に使うほどリーチが伸びやすい</li>
+        <li>人気楽曲は「この曲を使って撮る」だけでおすすめに乗りやすくなる</li>
+        <li>アメリカのトレンドは数週間遅れて日本に来ることが多い。先取りのチャンス</li>
+      </ul>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>本サイトはTikTok公式とは関係のない個人運営の情報サイトです。ランキングデータはTikTok Creative Centerの公開情報に基づきます。</p>
+      <p>&copy; <span id="year"></span> TikTokトレンド速報</p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

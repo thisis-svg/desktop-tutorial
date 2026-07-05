@@ -1,0 +1,64 @@
+name: トレンドデータ毎日更新
+
+on:
+  schedule:
+    # 毎日 21:00 UTC = 日本時間 朝6:00
+    - cron: "0 21 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: リポジトリを取得
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: トレンドデータを取得
+        run: python3 scripts/fetch_trends.py
+
+      - name: 変更があればコミットしてプッシュ
+        run: |
+          if git diff --quiet -- data/trends.json; then
+            echo "変更なし。コミットをスキップします。"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/trends.json
+          git commit -m "chore: トレンドデータ自動更新 ($(date -u +%Y-%m-%d))"
+          git push origin main
+
+      # GITHUB_TOKENによるpushでは他のワークフローが起動しないため、
+      # ここでそのままPagesへデプロイする
+      - name: Pagesを設定(未有効なら自動で有効化)
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: 公開ファイルをまとめる
+        run: |
+          mkdir -p _site
+          rsync -a --exclude=".git" --exclude=".github" --exclude="_site" --exclude="scripts" ./ _site/
+
+      - name: アップロード
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: デプロイ
+        id: deployment
+        uses: actions/deploy-pages@v4
