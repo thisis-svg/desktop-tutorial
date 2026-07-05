@@ -27,6 +27,14 @@ jobs:
       - name: リポジトリを取得
         uses: actions/checkout@v4
 
+      - name: サイト公開状態を確認
+        run: |
+          echo "--- HTTPステータス ---"
+          curl -sSI "https://thisis-svg.github.io/desktop-tutorial/" | head -8 || true
+          echo "--- 本文冒頭 ---"
+          curl -s "https://thisis-svg.github.io/desktop-tutorial/" | head -c 400 || true
+          echo ""
+
       - name: Playwrightをインストール
         run: |
           npm install --no-save --no-package-lock playwright
