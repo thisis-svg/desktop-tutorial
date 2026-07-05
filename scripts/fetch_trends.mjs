@@ -224,7 +224,8 @@ function nowJst() {
 
 async function main() {
   const previous = loadPrevious();
-  const prevRegions = previous.regions ?? {};
+  // サンプルデータは引き継がない(実データのみ維持する)
+  const prevRegions = previous.is_sample ? {} : (previous.regions ?? {});
 
   const browser = await chromium.launch();
   const context = await browser.newContext({
