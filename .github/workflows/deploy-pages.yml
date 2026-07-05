@@ -32,7 +32,9 @@ jobs:
       - name: 公開ファイルをまとめる
         run: |
           mkdir -p _site
-          rsync -a --exclude=".git" --exclude=".github" --exclude="_site" --exclude="scripts" ./ _site/
+          rsync -a --exclude=".git" --exclude=".github" --exclude="_site" \
+            --exclude="scripts" --exclude="node_modules" --exclude="package*.json" \
+            ./ _site/
 
       - name: アップロード
         uses: actions/upload-pages-artifact@v3
