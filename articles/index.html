@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>記事一覧 | TikTokトレンド速報</title>
+  <meta name="description" content="TikTok運用に役立つ記事の一覧。撮影機材、投稿のコツ、バズるための攻略情報など。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo"><span class="logo-tik">Tik</span><span class="logo-tok">Tok</span>トレンド速報</h1>
+      <p class="tagline">TikTok運用に役立つ記事</p>
+      <nav class="site-nav" aria-label="サイト内リンク">
+        <a href="../index.html">トップ</a>
+        <a href="../history.html">過去のトレンド</a>
+        <a href="index.html" class="active">記事</a>
+        <a href="../about.html">運営者情報</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <main class="page-content">
+      <section class="page-section">
+        <h2 class="section-title">記事一覧</h2>
+        <div class="article-list">
+
+          <a class="article-card" href="tiktok-gear.html">
+            <div class="article-card-title">【2026年版】TikTok撮影が劇的に良くなるおすすめ機材3選</div>
+            <div class="article-card-desc">スマホだけで始めた人が次に揃えるべき機材を厳選。リングライト・三脚・マイクの選び方。</div>
+          </a>
+
+          <!-- ★記事を追加するときは上のカードをコピーして増やしてください -->
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>本サイトはTikTok公式とは関係のない個人運営の情報サイトです。</p>
+      <p>&copy; <span id="year"></span> TikTokトレンド速報</p>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

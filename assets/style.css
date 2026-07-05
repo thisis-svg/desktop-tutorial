@@ -54,6 +54,37 @@ body {
   color: var(--text-dim);
 }
 
+/* ---- ナビゲーション ---- */
+.site-nav {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.site-nav a {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.site-nav a:hover {
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.site-nav a.active {
+  color: var(--text);
+  background: var(--bg-card);
+  border-color: var(--border);
+  font-weight: 700;
+}
+
 /* ---- バナー ---- */
 .sample-banner {
   margin: 16px 0 0;
@@ -147,6 +178,21 @@ body {
 }
 
 .trend-name .hash { color: var(--cyan); margin-right: 2px; }
+
+/* ---- 変動バッジ ---- */
+.badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.badge-new { background: var(--pink); color: #fff; }
+.badge-up { background: rgba(37, 244, 238, 0.15); color: var(--cyan); }
+.badge-down { background: rgba(154, 154, 168, 0.15); color: var(--text-dim); }
 
 .trend-meta {
   font-size: 0.8rem;
@@ -250,6 +296,126 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   font-size: 0.9rem;
+}
+
+/* ---- 日付セレクタ(過去のトレンド) ---- */
+.date-label {
+  align-self: center;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin-right: 4px;
+}
+
+.date-select {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+/* ---- 固定ページ・記事 ---- */
+.page-content { margin-top: 24px; }
+
+.page-section {
+  margin-bottom: 28px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.page-section p { font-size: 0.92rem; margin-top: 8px; }
+.page-section a { color: var(--cyan); }
+
+.sub-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-top: 16px;
+}
+
+.info-table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.info-table th,
+.info-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.info-table th { color: var(--text-dim); white-space: nowrap; width: 8em; }
+
+.policy-list {
+  margin: 10px 0 0 1.2em;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.policy-date {
+  margin-top: 14px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.article-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.article-card {
+  display: block;
+  padding: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.15s ease;
+}
+
+.article-card:hover { border-color: var(--pink); }
+.article-card-title { font-weight: 700; font-size: 1rem; }
+.article-card-desc { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
+
+.article { line-height: 1.9; }
+
+.article-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.article-date {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 20px;
+}
+
+.article p { font-size: 0.95rem; margin: 12px 0; }
+.article a { color: var(--cyan); }
+
+.article-h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 32px 0 8px;
+  padding-left: 12px;
+  border-left: 4px solid var(--pink);
+}
+
+.article-affiliate {
+  display: block;
+  margin: 16px 0;
 }
 
 /* ---- フッター ---- */
