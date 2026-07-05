@@ -1,10 +1,10 @@
 /**
- * TikTok Creative Center からトレンドデータ(ハッシュタグ・楽曲)を取得して
- * data/trends.json を更新するスクリプト。
+ * TikTok Creative Center からトレンドデータを取得して data/trends.json を更新する。
  *
- * APIは署名必須(40101)・SSRデータにも生配列が無いため、
- * Playwright でページを開き、描画済みのDOMからカード情報を直接抽出する。
- * 地域切替はヘッダーの国セレクタ(.trends-header-country-select)をUI操作する。
+ * 新しい Trends ページ (https://ads.tiktok.com/creative/creativeCenter/trends/...)
+ * はURLクエリで地域(region)と期間(period)を直接指定できる。
+ * データはdiv構造のリストとして描画されるため、Playwrightでページを開き
+ * 行要素のテキストから抽出する。
  *
  * - 取得に失敗したセクションは前回データを維持する
  * - 全セクション失敗時は exit 1(Actions の失敗通知で気付けるように)
@@ -18,19 +18,16 @@ import { fileURLToPath } from "node:url";
 const OUT_PATH = join(dirname(fileURLToPath(import.meta.url)), "..", "data", "trends.json");
 
 const PERIOD_DAYS = 7;
-const REGIONS = { JP: "Japan", US: "United States" };
+const REGIONS = ["JP", "US"];
+const TRENDS_BASE = "https://ads.tiktok.com/creative/creativeCenter/trends";
 
-const HASHTAG_PAGE =
-  "https://ads.tiktok.com/business/creativecenter/inspiration/popular/hashtag/pc/en";
-const MUSIC_PAGE =
-  "https://ads.tiktok.com/business/creativecenter/inspiration/popular/music/pc/en";
+// 楽曲ランキングの掲載先候補(現行UIでは廃止された可能性があるため複数試す)
+const MUSIC_URL_CANDIDATES = ["music", "song", "sound"];
 
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-/* ---------- ユーティリティ ---------- */
-
-/** "1.2M" "114.4K" "12,345" のような表示値を数値に変換 */
+/** "1.2M" "16.9K" "12,345" のような表示値を数値に変換 */
 function parseCount(text) {
   if (!text) return null;
   const m = String(text).replace(/,/g, "").match(/([\d.]+)\s*([KMB])?/i);
@@ -43,190 +40,60 @@ function parseCount(text) {
   return Math.round(n);
 }
 
-async function dismissCookieBanner(page) {
-  for (const label of ["Allow all", "Accept all", "Accept", "Agree", "同意"]) {
+/** 「View more」ボタンを数回クリックして行を増やす(ログイン要求が出たら中断) */
+async function expandList(page) {
+  for (let i = 0; i < 4; i++) {
+    const before = await page.locator('[class*="rose-hover"]').count();
+    const btn = page.getByText("View more", { exact: true }).first();
     try {
-      await page.getByRole("button", { name: label }).first().click({ timeout: 1500 });
-      console.log(`Cookieバナーを閉じました (${label})`);
-      return;
+      await btn.click({ timeout: 3000 });
     } catch {
-      /* 次の候補へ */
+      break;
+    }
+    await page.waitForTimeout(2500);
+    // ログインモーダルが出たら閉じて中断
+    const loginVisible = await page
+      .getByText(/log in or sign up/i)
+      .first()
+      .isVisible()
+      .catch(() => false);
+    const after = await page.locator('[class*="rose-hover"]').count();
+    if (after <= before) {
+      if (loginVisible) await page.keyboard.press("Escape").catch(() => {});
+      break;
     }
   }
 }
 
-/** 現在選択中の国名を返す */
-async function currentRegionLabel(page) {
-  try {
-    return (
-      (await page
-        .locator(".trends-header-country-select")
-        .first()
-        .textContent({ timeout: 5000 })) || ""
-    ).trim();
-  } catch {
-    return "";
-  }
-}
-
-/** 国セレクタを操作して地域を切り替える */
-async function switchRegion(page, label) {
-  await page.locator(".trends-header-country-select").first().click({ timeout: 10000 });
-  await page.waitForTimeout(600);
-  // セレクタは検索入力付き。国名を入力して絞り込む
-  try {
-    await page.keyboard.type(label, { delay: 30 });
-  } catch {
-    /* 入力不可でも続行 */
-  }
-  await page.waitForTimeout(1000);
-  // ドロップダウンの選択肢をクリック
-  const option = page
-    .locator('[class*="option"], [role="option"], li')
-    .filter({ hasText: label })
-    .last();
-  await option.click({ timeout: 6000 });
-  await page.waitForTimeout(5000); // データ再描画を待つ
-}
-
-/* ---------- DOM抽出 ---------- */
-
-/** テーブル(またはrole=rowのグリッド)から行データを抽出する共通処理 */
-async function scrapeRows(page) {
-  // 遅延描画対策で軽くスクロール
-  try {
-    await page.mouse.wheel(0, 1500);
-  } catch {
-    /* ヘッドレスで失敗しても続行 */
-  }
-  await page.waitForTimeout(2000);
+/** 行要素(ホバー色付きのリスト行)からテキスト行の配列を抽出 */
+async function extractRowLines(page) {
   return await page.evaluate(() => {
-    let rows = [...document.querySelectorAll("table tbody tr")];
-    if (!rows.length) rows = [...document.querySelectorAll("table tr")].slice(1);
-    if (!rows.length) rows = [...document.querySelectorAll('[role="row"]')].slice(1);
-    return rows
-      .map((tr) => {
-        const cells = [...tr.querySelectorAll('td, th, [role="cell"], [role="gridcell"]')];
-        const texts = (cells.length ? cells : [tr]).map((td) => (td.innerText || "").trim());
-        return {
-          texts,
-          img: tr.querySelector("img")?.src || "",
-          link: tr.querySelector("a")?.href || "",
-        };
-      })
-      .filter((r) => r.texts.some((t) => t));
+    const rows = [...document.querySelectorAll('[class*="rose-hover"]')];
+    return rows.map((row) => ({
+      lines: (row.innerText || "")
+        .split("\n")
+        .map((s) => s.trim())
+        .filter(Boolean),
+      img: row.querySelector("img")?.src || "",
+      link: row.querySelector("a")?.href || "",
+    }));
   });
 }
 
-const scrapeHashtags = scrapeRows;
-const scrapeSongs = scrapeRows;
-
-/** 失敗解析用の診断情報をログに出す */
-async function dumpDiagnostics(page, label) {
-  const diag = await page.evaluate(() => {
-    // ページ本文(データ行が描画されているかの確認用)
-    const bodyText = document.body.innerText.slice(0, 2500).replace(/\n+/g, " | ");
-    // ドキュメント内の全クラス名(ユニーク、上限付き)
-    const classSet = new Set();
-    for (const el of document.querySelectorAll("[class]")) {
-      for (const c of el.classList) {
-        classSet.add(c);
-        if (classSet.size >= 300) break;
-      }
-      if (classSet.size >= 300) break;
-    }
-    // "#〜" テキストを持つ末端要素(ハッシュタグセル候補)
-    const hashEls = [...document.querySelectorAll("*")]
-      .filter((el) => el.children.length === 0 && /^#\s?\S/.test((el.textContent || "").trim()))
-      .slice(0, 5)
-      .map((el) => `${el.tagName}.${el.className}:「${(el.textContent || "").trim().slice(0, 30)}」`);
-    // 関連しそうなアンカー
-    const anchors = [...document.querySelectorAll("a[href]")]
-      .map((a) => a.getAttribute("href"))
-      .filter((h) => /hashtag|music|song/i.test(h || ""))
-      .slice(0, 10);
-    return { bodyText, classes: [...classSet].join(" "), hashEls, anchors };
-  });
-  console.log(`[${label}] 本文:`, diag.bodyText);
-  console.log(`[${label}] クラス一覧:`, diag.classes.slice(0, 3000));
-  console.log(`[${label}] #要素:`, JSON.stringify(diag.hashEls));
-  console.log(`[${label}] アンカー:`, JSON.stringify(diag.anchors));
-}
-
-/* ---------- 収集フロー ---------- */
-
-async function collect(context, pageUrl, scrape, normalize, diagLabel) {
-  const page = await context.newPage();
-  const byRegion = {};
-  try {
-    await page.goto(`${pageUrl}?period=${PERIOD_DAYS}`, {
-      waitUntil: "domcontentloaded",
-      timeout: 90000,
-    });
-    await dismissCookieBanner(page);
-    await page.waitForTimeout(6000);
-
-    for (const [code, label] of Object.entries(REGIONS)) {
-      const current = await currentRegionLabel(page);
-      console.log(`[${diagLabel}] 現在の地域表示: "${current}" → 目標: ${label}`);
-      if (!current.includes(label)) {
-        try {
-          await switchRegion(page, label);
-        } catch (e) {
-          console.error(`[${diagLabel}] 地域切替失敗 (${label}): ${e.message}`);
-          continue;
-        }
-      }
-      const raw = await scrape(page);
-      const items = normalize(raw);
-      if (items.length) {
-        byRegion[code] = items;
-        console.log(
-          `[${diagLabel}] ${code}: ${items.length}件 上位: ${items
-            .slice(0, 3)
-            .map((x) => x.name || x.title)
-            .join(", ")}`
-        );
-      } else {
-        console.error(`[${diagLabel}] ${code}: 0件`);
-        console.log(
-          `[${diagLabel}:${code}] 行サンプル:`,
-          JSON.stringify(raw.slice(0, 3)).slice(0, 800)
-        );
-        await dumpDiagnostics(page, `${diagLabel}:${code}`);
-      }
-    }
-  } finally {
-    await page.close();
-  }
-  return byRegion;
-}
-
-function normalizeHashtags(rows) {
+/** ハッシュタグ行: ["1", "#name", "カテゴリ...", "16.9K", "Posts", "9.7M", "Views", ...] */
+function parseHashtagRows(rows) {
   const items = [];
   for (const row of rows) {
-    const { texts } = row;
-    // ハッシュタグ名: "#〜" で始まるセル、なければ2番目のセルの1行目
-    let nameCellIdx = texts.findIndex((t) => /^#\s*\S/.test(t));
-    if (nameCellIdx < 0) nameCellIdx = Math.min(1, texts.length - 1);
-    const name = (texts[nameCellIdx] || "").split("\n")[0].replace(/^#\s*/, "").trim();
-    if (!name || /^(rank|hashtag)$/i.test(name)) continue;
-    // 投稿数・再生数: 名前セル以降で数値トークンを含むセルから抽出
-    let posts = null;
-    let views = null;
-    for (let i = nameCellIdx + 1; i < texts.length; i++) {
-      const tokens = texts[i].match(/[\d.,]+\s*[KMB]?(?![\w])/gi);
-      if (tokens?.length) {
-        posts = parseCount(tokens[0]);
-        if (tokens.length > 1) views = parseCount(tokens[1]);
-        break;
-      }
-    }
+    const { lines } = row;
+    const name = (lines.find((t) => /^#\S/.test(t)) || "").replace(/^#/, "").trim();
+    if (!name) continue;
+    const postsIdx = lines.findIndex((t) => /^posts$/i.test(t));
+    const viewsIdx = lines.findIndex((t) => /^views$/i.test(t));
     items.push({
       rank: items.length + 1,
       name,
-      posts,
-      views,
+      posts: postsIdx > 0 ? parseCount(lines[postsIdx - 1]) : null,
+      views: viewsIdx > 0 ? parseCount(lines[viewsIdx - 1]) : null,
       url: `https://www.tiktok.com/tag/${encodeURIComponent(name)}`,
     });
     if (items.length >= 30) break;
@@ -234,18 +101,18 @@ function normalizeHashtags(rows) {
   return items;
 }
 
-function normalizeSongs(rows) {
+/** 楽曲行(存在する場合): 順位の次の非数値行を曲名、その次をアーティストとみなす */
+function parseSongRows(rows) {
   const items = [];
   for (const row of rows) {
-    const { texts } = row;
-    // 曲名セル: 数値だけではない最初のセル(順位セルを除く)
-    const cell = texts.find((t, i) => i > 0 && t && !/^[\d.,\sKMB%]+$/i.test(t)) || "";
-    const [title, author = ""] = cell.split("\n").map((s) => s.trim());
-    if (!title || /^(song|music|title)$/i.test(title)) continue;
+    const { lines } = row;
+    const textLines = lines.filter((t) => !/^\d+$/.test(t));
+    const [title, author = ""] = textLines;
+    if (!title || /^#/.test(title)) continue; // ハッシュタグ行は除外
     items.push({
       rank: items.length + 1,
       title,
-      author,
+      author: /^[\d.,KMB\s]+$/i.test(author) ? "" : author,
       url: `https://www.tiktok.com/search?q=${encodeURIComponent(title)}`,
       cover: row.img || "",
     });
@@ -254,7 +121,89 @@ function normalizeSongs(rows) {
   return items;
 }
 
-/* ---------- 出力 ---------- */
+async function openTrendsPage(page, tab, region) {
+  const url = `${TRENDS_BASE}/${tab}?period=${PERIOD_DAYS}&region=${region}`;
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90000 });
+  await page.waitForTimeout(5000);
+  return url;
+}
+
+async function collectHashtags(context) {
+  const page = await context.newPage();
+  const byRegion = {};
+  try {
+    for (const region of REGIONS) {
+      await openTrendsPage(page, "hashtag", region);
+      await expandList(page);
+      const rows = await extractRowLines(page);
+      const items = parseHashtagRows(rows);
+      if (items.length) {
+        byRegion[region] = items;
+        console.log(
+          `[hashtags] ${region}: ${items.length}件 上位: ${items
+            .slice(0, 3)
+            .map((x) => "#" + x.name)
+            .join(", ")}`
+        );
+      } else {
+        console.error(`[hashtags] ${region}: 0件 行数=${rows.length}`);
+        console.log(`[hashtags:${region}] 行サンプル:`, JSON.stringify(rows.slice(0, 2)));
+      }
+    }
+  } finally {
+    await page.close();
+  }
+  return byRegion;
+}
+
+async function collectSongs(context) {
+  const page = await context.newPage();
+  const byRegion = {};
+  try {
+    // 楽曲タブのURLを探索(現行UIに存在しない可能性がある)
+    let workingTab = null;
+    for (const tab of MUSIC_URL_CANDIDATES) {
+      const requested = await openTrendsPage(page, tab, "JP");
+      const landed = page.url();
+      const bodyHead = await page.evaluate(() =>
+        document.body.innerText.slice(0, 400).replace(/\n+/g, " | ")
+      );
+      console.log(`[songs] 試行 ${requested} → 実URL ${landed}`);
+      console.log(`[songs] 本文冒頭: ${bodyHead.slice(0, 300)}`);
+      // リダイレクトされずに楽曲らしい行が取れるか確認
+      if (landed.includes(`/${tab}`)) {
+        await expandList(page);
+        const rows = await extractRowLines(page);
+        const items = parseSongRows(rows);
+        if (items.length) {
+          workingTab = tab;
+          byRegion.JP = items;
+          console.log(`[songs] JP: ${items.length}件 (${tab})`);
+          break;
+        }
+      }
+    }
+    if (workingTab) {
+      for (const region of REGIONS) {
+        if (byRegion[region]) continue;
+        await openTrendsPage(page, workingTab, region);
+        await expandList(page);
+        const items = parseSongRows(await extractRowLines(page));
+        if (items.length) {
+          byRegion[region] = items;
+          console.log(`[songs] ${region}: ${items.length}件`);
+        }
+      }
+    } else {
+      console.error(
+        "[songs] 楽曲ランキングページが見つかりません(Creative Center から廃止された可能性)。前回データを維持します。"
+      );
+    }
+  } finally {
+    await page.close();
+  }
+  return byRegion;
+}
 
 function loadPrevious() {
   if (existsSync(OUT_PATH)) {
@@ -284,14 +233,8 @@ async function main() {
     viewport: { width: 1440, height: 900 },
   });
 
-  const hashtagsByRegion = await collect(
-    context,
-    HASHTAG_PAGE,
-    scrapeHashtags,
-    normalizeHashtags,
-    "hashtags"
-  );
-  const songsByRegion = await collect(context, MUSIC_PAGE, scrapeSongs, normalizeSongs, "songs");
+  const hashtagsByRegion = await collectHashtags(context);
+  const songsByRegion = await collectSongs(context);
 
   await browser.close();
 
@@ -299,7 +242,7 @@ async function main() {
   let success = 0;
   let failure = 0;
 
-  for (const code of Object.keys(REGIONS)) {
+  for (const code of REGIONS) {
     const prev = prevRegions[code] ?? {};
     const region = { hashtags: prev.hashtags ?? [], songs: prev.songs ?? [] };
 
