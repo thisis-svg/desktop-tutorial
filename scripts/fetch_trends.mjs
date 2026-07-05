@@ -2,9 +2,10 @@
  * TikTok Creative Center からトレンドデータ(ハッシュタグ・楽曲)を取得して
  * data/trends.json を更新するスクリプト。
  *
- * Creative Center のAPIは直接呼ぶと 40101 (no permission) になるため、
- * Playwright で実際にページを開き、ページ自身が受信したAPIレスポンスを
- * 横取りする方式をとる。地域の切り替えはページ上のセレクタをUI操作する。
+ * Creative Center はSSR(サーバーサイドレンダリング)で、ランキングデータは
+ * window._SSR_DATA / window._ROUTER_DATA に埋め込まれている。
+ * Playwright でページを開き、この埋め込みデータを抽出する。
+ * 地域指定はURLクエリパラメータの候補を試し、効いたものを使う。
  *
  * - 取得に失敗したセクションは前回データを維持する
  * - 全セクション失敗時は exit 1(Actions の失敗通知で気付けるように)
@@ -18,7 +19,9 @@ import { fileURLToPath } from "node:url";
 const OUT_PATH = join(dirname(fileURLToPath(import.meta.url)), "..", "data", "trends.json");
 
 const PERIOD_DAYS = 7;
-const REGION_LABELS = { JP: "Japan", US: "United States" };
+const REGIONS = ["JP", "US"];
+// 地域指定に使うURLパラメータ名の候補(効いたものを採用する)
+const REGION_PARAM_CANDIDATES = ["country_code", "countryCode", "region", "country"];
 
 const HASHTAG_PAGE =
   "https://ads.tiktok.com/business/creativecenter/inspiration/popular/hashtag/pc/en";
@@ -35,8 +38,45 @@ function pick(obj, keys, dflt = null) {
   return dflt;
 }
 
-function parseHashtags(body) {
-  const items = body?.data?.list ?? [];
+/* ---------- SSRデータからの抽出 ---------- */
+
+/**
+ * ページ内のSSR状態オブジェクトから、判定関数にマッチする
+ * 「オブジェクトの配列」をすべて探して返す。
+ */
+async function extractArrays(page, matcherSource) {
+  return await page.evaluate((matcherSrc) => {
+    const matcher = new Function("item", `return (${matcherSrc})(item);`);
+    const results = [];
+    const seen = new Set();
+    const walk = (obj, path) => {
+      if (obj === null || typeof obj !== "object") return;
+      if (seen.has(obj)) return;
+      seen.add(obj);
+      if (Array.isArray(obj)) {
+        if (obj.length && obj[0] && typeof obj[0] === "object" && matcher(obj[0])) {
+          results.push({ path, items: obj });
+        }
+        obj.forEach((v, i) => walk(v, `${path}[${i}]`));
+      } else {
+        for (const [k, v] of Object.entries(obj)) walk(v, `${path}.${k}`);
+      }
+    };
+    for (const key of ["_SSR_DATA", "_ROUTER_DATA"]) {
+      try {
+        if (window[key]) walk(window[key], key);
+      } catch {
+        /* 走査エラーは無視 */
+      }
+    }
+    return results;
+  }, matcherSource);
+}
+
+const HASHTAG_MATCHER = `(item) => typeof item === "object" && "hashtag_name" in item`;
+const SONG_MATCHER = `(item) => typeof item === "object" && ("song_id" in item || ("title" in item && "author" in item))`;
+
+function parseHashtagItems(items) {
   return items
     .map((it, i) => {
       const name = pick(it, ["hashtag_name", "name"]);
@@ -52,8 +92,7 @@ function parseHashtags(body) {
     .filter(Boolean);
 }
 
-function parseSongs(body) {
-  const items = body?.data?.sound_list ?? body?.data?.list ?? [];
+function parseSongItems(items) {
   return items
     .map((it, i) => {
       const title = pick(it, ["title", "song_name"]);
@@ -71,113 +110,95 @@ function parseSongs(body) {
     .filter(Boolean);
 }
 
-/**
- * ページ上の地域セレクタを操作して指定の地域に切り替える。
- * UIの構造が変わっても動くよう、複数のセレクタ候補を順に試す。
- */
-async function switchRegion(page, regionLabel) {
-  // 現在選択中の地域名が表示されている要素をクリックしてドロップダウンを開く
-  const openCandidates = [
-    `.byted-select`,
-    `[class*="Select"][class*="single"]`,
-    `[class*="select"]`,
-  ];
-  let opened = false;
-  for (const sel of openCandidates) {
-    const el = page.locator(sel).first();
-    try {
-      await el.click({ timeout: 4000 });
-      opened = true;
-      break;
-    } catch {
-      /* 次の候補へ */
-    }
+/** ページを開いてSSRデータから最良の配列(最も件数が多いもの)を抽出 */
+async function loadAndExtract(page, url, matcher, parse, diagLabel) {
+  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90000 });
+  await page.waitForTimeout(3000);
+  const found = await extractArrays(page, matcher);
+  if (!found.length) {
+    console.log(`[${diagLabel}] SSRデータ内に該当配列なし: ${url}`);
+    return [];
   }
-  if (!opened) throw new Error("地域セレクタが見つかりません");
-
-  // ドロップダウン内の目的の地域をクリック
-  const optionCandidates = [
-    page.locator(`[role="option"]`, { hasText: regionLabel }).first(),
-    page.locator(`li`, { hasText: regionLabel }).first(),
-    page.getByText(regionLabel, { exact: true }).first(),
-  ];
-  for (const opt of optionCandidates) {
-    try {
-      await opt.click({ timeout: 4000 });
-      return;
-    } catch {
-      /* 次の候補へ */
-    }
-  }
-  throw new Error(`地域オプション「${regionLabel}」をクリックできません`);
+  found.sort((a, b) => b.items.length - a.items.length);
+  const best = found[0];
+  const parsed = parse(best.items);
+  console.log(
+    `[${diagLabel}] ${parsed.length}件抽出 (path=${best.path.slice(0, 100)}) 上位: ${parsed
+      .slice(0, 3)
+      .map((x) => x.name || x.title)
+      .join(", ")}`
+  );
+  return parsed;
 }
 
 /**
- * ページを操作しながら、成功した(code=0)APIレスポンスを地域ごとに収集する。
- * @param apiPathPart 監視対象APIのURL部分文字列 (例: "hashtag/list")
+ * 地域ごとのデータを収集する。
+ * まず地域パラメータなしで読み込み、次に各候補パラメータでJPを読み込んで
+ * 内容が変化するか確認し、効いたパラメータで全地域を取得する。
  */
-async function collectByRegion(context, pageUrl, apiPathPart, parse, diagLabel) {
+async function collectByRegion(context, baseUrl, matcher, parse, diagLabel) {
   const page = await context.newPage();
-  const collected = {}; // country_code -> parsed items
-  let lastCountry = null;
-
-  page.on("response", async (res) => {
-    const url = res.url();
-    if (!url.includes(apiPathPart)) return;
-    let body = null;
-    try {
-      body = await res.json();
-    } catch {
-      /* JSON以外は無視 */
-    }
-    const country = new URL(url).searchParams.get("country_code") || "unknown";
-    console.log(
-      `[${diagLabel}] API応答: status=${res.status()} code=${body?.code} country=${country} ${url.slice(0, 140)}`
-    );
-    if (body?.code === 0) {
-      const items = parse(body);
-      if (items.length) {
-        // 同じ地域は最新(=より多い件数側)を優先
-        if (!collected[country] || items.length >= collected[country].length) {
-          collected[country] = items;
-        }
-        lastCountry = country;
-      }
-    }
-  });
-
+  const collected = {};
   try {
-    await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 90000 });
-    await page.waitForTimeout(8000); // 初期ロードのAPI応答を待つ
-
-    console.log(`[${diagLabel}] 初期ロード後の取得地域:`, Object.keys(collected).join(", ") || "なし");
-
-    // 診断: 署名付きリクエストの有無、SSRデータの有無を記録
-    const globals = await page.evaluate(() =>
-      Object.keys(window).filter((k) => /INIT|DATA|STATE|SSR/i.test(k)).slice(0, 10)
+    const defaultItems = await loadAndExtract(
+      page,
+      `${baseUrl}?period=${PERIOD_DAYS}`,
+      matcher,
+      parse,
+      `${diagLabel}:default`
     );
-    console.log(`[${diagLabel}] 診断: window上の状態キー候補:`, globals.join(", ") || "なし");
+    const defaultTop = defaultItems[0]?.name || defaultItems[0]?.title || "";
 
-    // 各地域に切り替えながら収集
-    for (const [code, label] of Object.entries(REGION_LABELS)) {
-      if (collected[code]) continue;
-      try {
-        await switchRegion(page, label);
-        await page.waitForTimeout(6000);
-        console.log(
-          `[${diagLabel}] 「${label}」切替後の取得地域:`,
-          Object.keys(collected).join(", ") || "なし"
-        );
-      } catch (e) {
-        console.error(`[${diagLabel}] 地域切替失敗 (${label}): ${e.message}`);
+    let workingParam = null;
+    for (const param of REGION_PARAM_CANDIDATES) {
+      const items = await loadAndExtract(
+        page,
+        `${baseUrl}?period=${PERIOD_DAYS}&${param}=JP`,
+        matcher,
+        parse,
+        `${diagLabel}:${param}=JP`
+      );
+      const top = items[0]?.name || items[0]?.title || "";
+      if (items.length && top && top !== defaultTop) {
+        workingParam = param;
+        collected.JP = items;
+        console.log(`[${diagLabel}] 地域パラメータ「${param}」が有効`);
+        break;
       }
+    }
+
+    if (workingParam) {
+      for (const code of REGIONS) {
+        if (collected[code]) continue;
+        const items = await loadAndExtract(
+          page,
+          `${baseUrl}?period=${PERIOD_DAYS}&${workingParam}=${code}`,
+          matcher,
+          parse,
+          `${diagLabel}:${code}`
+        );
+        if (items.length) collected[code] = items;
+      }
+    } else {
+      console.error(
+        `[${diagLabel}] 有効な地域パラメータが見つかりません。既定地域のデータのみ使用します。`
+      );
+      // 既定はランナーのIPに基づく(通常US)
+      if (defaultItems.length) collected.US = defaultItems;
+      // 診断: 地域セレクタらしき要素を記録(次回改修のヒント用)
+      const diag = await page.evaluate(() => {
+        const els = [...document.querySelectorAll('[class*="elect"], [role="combobox"]')].slice(0, 8);
+        return els.map((el) => `${el.tagName}.${el.className}`.slice(0, 120));
+      });
+      console.log(`[${diagLabel}] 診断: セレクタ候補要素:`, JSON.stringify(diag));
     }
   } finally {
     await page.close();
   }
-
-  return { collected, lastCountry };
+  return collected;
 }
+
+/* ---------- 出力 ---------- */
 
 function loadPrevious() {
   if (existsSync(OUT_PATH)) {
@@ -203,18 +224,18 @@ async function main() {
   const browser = await chromium.launch();
   const context = await browser.newContext({ userAgent: UA, locale: "en-US" });
 
-  const hashtagResult = await collectByRegion(
+  const hashtagsByRegion = await collectByRegion(
     context,
     HASHTAG_PAGE,
-    "hashtag/list",
-    parseHashtags,
+    HASHTAG_MATCHER,
+    parseHashtagItems,
     "hashtags"
   );
-  const songResult = await collectByRegion(
+  const songsByRegion = await collectByRegion(
     context,
     MUSIC_PAGE,
-    "sound/rank_list",
-    parseSongs,
+    SONG_MATCHER,
+    parseSongItems,
     "songs"
   );
 
@@ -224,15 +245,15 @@ async function main() {
   let success = 0;
   let failure = 0;
 
-  for (const code of Object.keys(REGION_LABELS)) {
+  for (const code of REGIONS) {
     const prev = prevRegions[code] ?? {};
     const region = { hashtags: prev.hashtags ?? [], songs: prev.songs ?? [] };
 
-    for (const [key, result] of [
-      ["hashtags", hashtagResult],
-      ["songs", songResult],
+    for (const [key, byRegion] of [
+      ["hashtags", hashtagsByRegion],
+      ["songs", songsByRegion],
     ]) {
-      const items = result.collected[code];
+      const items = byRegion[code];
       if (items?.length) {
         region[key] = items;
         success++;
