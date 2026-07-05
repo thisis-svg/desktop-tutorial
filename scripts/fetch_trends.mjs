@@ -91,76 +91,35 @@ async function switchRegion(page, label) {
 
 /* ---------- DOM抽出 ---------- */
 
-async function scrapeHashtags(page) {
+/** テーブル(またはrole=rowのグリッド)から行データを抽出する共通処理 */
+async function scrapeRows(page) {
+  // 遅延描画対策で軽くスクロール
+  try {
+    await page.mouse.wheel(0, 1500);
+  } catch {
+    /* ヘッドレスで失敗しても続行 */
+  }
+  await page.waitForTimeout(2000);
   return await page.evaluate(() => {
-    // ハッシュタグ詳細ページへのリンクを持つカードを探す
-    const seen = new Set();
-    const items = [];
-    // タイトル要素の候補: クラス名に titleText を含む要素、または "# " で始まるテキスト
-    const titleEls = [
-      ...document.querySelectorAll('[class*="titleText"], [class*="CardPc_titleText"]'),
-    ];
-    const candidates = titleEls.length
-      ? titleEls
-      : [...document.querySelectorAll("span, h3, a")].filter((el) => {
-          const t = (el.textContent || "").trim();
-          return /^#\s?\S/.test(t) && t.length < 60 && el.children.length === 0;
-        });
-    for (const el of candidates) {
-      const raw = (el.textContent || "").trim();
-      const name = raw.replace(/^#\s*/, "").trim();
-      if (!name || seen.has(name)) continue;
-      seen.add(name);
-      // 同じカード内の投稿数表示を探す
-      let posts = null;
-      let node = el;
-      for (let up = 0; up < 5 && node; up++) {
-        node = node.parentElement;
-        if (!node) break;
-        const v = node.querySelector('[class*="itemValue"], [class*="Value"]');
-        if (v) {
-          posts = v.textContent.trim();
-          break;
-        }
-      }
-      items.push({ name, postsText: posts });
-    }
-    return items;
+    let rows = [...document.querySelectorAll("table tbody tr")];
+    if (!rows.length) rows = [...document.querySelectorAll("table tr")].slice(1);
+    if (!rows.length) rows = [...document.querySelectorAll('[role="row"]')].slice(1);
+    return rows
+      .map((tr) => {
+        const cells = [...tr.querySelectorAll('td, th, [role="cell"], [role="gridcell"]')];
+        const texts = (cells.length ? cells : [tr]).map((td) => (td.innerText || "").trim());
+        return {
+          texts,
+          img: tr.querySelector("img")?.src || "",
+          link: tr.querySelector("a")?.href || "",
+        };
+      })
+      .filter((r) => r.texts.some((t) => t));
   });
 }
 
-async function scrapeSongs(page) {
-  return await page.evaluate(() => {
-    const items = [];
-    const seen = new Set();
-    const nameEls = [
-      ...document.querySelectorAll(
-        '[class*="musicName"], [class*="MusicName"], [class*="ItemCard_title"]'
-      ),
-    ];
-    for (const el of nameEls) {
-      const title = (el.textContent || "").trim();
-      if (!title || seen.has(title)) continue;
-      seen.add(title);
-      let author = "";
-      let cover = "";
-      let node = el;
-      for (let up = 0; up < 6 && node; up++) {
-        node = node.parentElement;
-        if (!node) break;
-        const a = node.querySelector(
-          '[class*="autherName"], [class*="authorName"], [class*="singer"], [class*="Author"]'
-        );
-        if (a && !author) author = a.textContent.trim();
-        const img = node.querySelector("img");
-        if (img && !cover) cover = img.src || "";
-        if (author) break;
-      }
-      items.push({ title, author, cover });
-    }
-    return items;
-  });
-}
+const scrapeHashtags = scrapeRows;
+const scrapeSongs = scrapeRows;
 
 /** 失敗解析用の診断情報をログに出す */
 async function dumpDiagnostics(page, label) {
@@ -225,6 +184,10 @@ async function collect(context, pageUrl, scrape, normalize, diagLabel) {
         );
       } else {
         console.error(`[${diagLabel}] ${code}: 0件`);
+        console.log(
+          `[${diagLabel}:${code}] 行サンプル:`,
+          JSON.stringify(raw.slice(0, 3)).slice(0, 800)
+        );
         await dumpDiagnostics(page, `${diagLabel}:${code}`);
       }
     }
@@ -234,24 +197,56 @@ async function collect(context, pageUrl, scrape, normalize, diagLabel) {
   return byRegion;
 }
 
-function normalizeHashtags(raw) {
-  return raw.slice(0, 30).map((it, i) => ({
-    rank: i + 1,
-    name: it.name,
-    posts: parseCount(it.postsText),
-    views: null,
-    url: `https://www.tiktok.com/tag/${encodeURIComponent(it.name)}`,
-  }));
+function normalizeHashtags(rows) {
+  const items = [];
+  for (const row of rows) {
+    const { texts } = row;
+    // ハッシュタグ名: "#〜" で始まるセル、なければ2番目のセルの1行目
+    let nameCellIdx = texts.findIndex((t) => /^#\s*\S/.test(t));
+    if (nameCellIdx < 0) nameCellIdx = Math.min(1, texts.length - 1);
+    const name = (texts[nameCellIdx] || "").split("\n")[0].replace(/^#\s*/, "").trim();
+    if (!name || /^(rank|hashtag)$/i.test(name)) continue;
+    // 投稿数・再生数: 名前セル以降で数値トークンを含むセルから抽出
+    let posts = null;
+    let views = null;
+    for (let i = nameCellIdx + 1; i < texts.length; i++) {
+      const tokens = texts[i].match(/[\d.,]+\s*[KMB]?(?![\w])/gi);
+      if (tokens?.length) {
+        posts = parseCount(tokens[0]);
+        if (tokens.length > 1) views = parseCount(tokens[1]);
+        break;
+      }
+    }
+    items.push({
+      rank: items.length + 1,
+      name,
+      posts,
+      views,
+      url: `https://www.tiktok.com/tag/${encodeURIComponent(name)}`,
+    });
+    if (items.length >= 30) break;
+  }
+  return items;
 }
 
-function normalizeSongs(raw) {
-  return raw.slice(0, 30).map((it, i) => ({
-    rank: i + 1,
-    title: it.title,
-    author: it.author || "",
-    url: `https://www.tiktok.com/search?q=${encodeURIComponent(it.title)}`,
-    cover: it.cover || "",
-  }));
+function normalizeSongs(rows) {
+  const items = [];
+  for (const row of rows) {
+    const { texts } = row;
+    // 曲名セル: 数値だけではない最初のセル(順位セルを除く)
+    const cell = texts.find((t, i) => i > 0 && t && !/^[\d.,\sKMB%]+$/i.test(t)) || "";
+    const [title, author = ""] = cell.split("\n").map((s) => s.trim());
+    if (!title || /^(song|music|title)$/i.test(title)) continue;
+    items.push({
+      rank: items.length + 1,
+      title,
+      author,
+      url: `https://www.tiktok.com/search?q=${encodeURIComponent(title)}`,
+      cover: row.img || "",
+    });
+    if (items.length >= 30) break;
+  }
+  return items;
 }
 
 /* ---------- 出力 ---------- */
