@@ -16,21 +16,14 @@ GitHub Actions(毎朝6時 JST)
 - **データ出典**: [TikTok Creative Center](https://ads.tiktok.com/business/creativecenter/pc/ja)(TikTok公式が公開しているトレンドデータ)
 - **対象地域**: 日本 🇯🇵 / アメリカ 🇺🇸(過去7日間の人気ランキング、各30件)
 
-## 初回セットアップ(2ステップ)
+## 初回セットアップ
 
-### 1. GitHub Pages を有効にする
+mainブランチにマージして「トレンドデータ毎日更新」ワークフローを一度実行するだけです。
+GitHub Pagesの有効化はワークフローが自動で行うため、設定画面の操作は不要です。
 
-1. このリポジトリの **Settings → Pages** を開く
-2. 「Build and deployment」の Source を **Deploy from a branch** にする
-3. Branch を **main**、フォルダを **/(root)** にして Save
-
-数分後に `https://<ユーザー名>.github.io/<リポジトリ名>/` でサイトが公開されます。
-
-### 2. 自動更新を動かす
-
-- **Actions** タブを開き、ワークフローの実行を有効化(初回に確認を求められた場合)
-- 「トレンドデータ毎日更新」ワークフローを選び **Run workflow** で手動実行すると、すぐに実データに切り替わります
+- 手動で実行したいときは **Actions** タブ →「トレンドデータ毎日更新」→ **Run workflow**
 - 以降は毎朝6時(日本時間)に自動更新されます
+- サイトURL: `https://<ユーザー名>.github.io/<リポジトリ名>/`
 
 > 更新が失敗するとGitHubからメール通知が届きます。TikTok側のAPI仕様変更が原因の場合は `scripts/fetch_trends.py` の修正が必要です。
 
