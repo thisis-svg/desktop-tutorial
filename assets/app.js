@@ -58,6 +58,14 @@
         var hash = el("span", "hash", "#");
         name.appendChild(hash);
         name.appendChild(document.createTextNode(item.name || ""));
+        // 前日比較バッジ
+        if (item.change === "new") {
+          name.appendChild(el("span", "badge badge-new", "NEW"));
+        } else if (item.change === "up") {
+          name.appendChild(el("span", "badge badge-up", "↑" + (item.delta || "")));
+        } else if (item.change === "down") {
+          name.appendChild(el("span", "badge badge-down", "↓" + (item.delta || "")));
+        }
       } else {
         name.appendChild(document.createTextNode(item.title || ""));
       }
@@ -69,6 +77,7 @@
         var views = formatCount(item.views);
         if (posts) metaParts.push("投稿 " + posts + "件");
         if (views) metaParts.push("再生 " + views + "回");
+        if (item.streak >= 2) metaParts.push("🔥 " + item.streak + "日連続");
       } else if (item.author) {
         metaParts.push(item.author);
       }

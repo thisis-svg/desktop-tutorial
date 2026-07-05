@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>過去のトレンド | TikTokトレンド速報</title>
+  <meta name="description" content="TikTokの過去の急上昇ハッシュタグを日付別に振り返り。トレンドの移り変わりをチェック。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo"><span class="logo-tik">Tik</span><span class="logo-tok">Tok</span>トレンド速報</h1>
+      <p class="tagline">過去のトレンドを日付別に振り返り</p>
+      <nav class="site-nav" aria-label="サイト内リンク">
+        <a href="index.html">トップ</a>
+        <a href="history.html" class="active">過去のトレンド</a>
+        <a href="articles/index.html">記事</a>
+        <a href="about.html">運営者情報</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <nav class="controls" aria-label="表示切り替え">
+      <div class="control-group">
+        <label class="date-label" for="date-select">日付:</label>
+        <select id="date-select" class="date-select"></select>
+      </div>
+      <div class="control-group" role="tablist" aria-label="地域">
+        <button class="chip active" data-region="JP">🇯🇵 日本</button>
+        <button class="chip" data-region="US">🇺🇸 アメリカ</button>
+      </div>
+    </nav>
+
+    <main>
+      <section id="trend-list" class="trend-list" aria-live="polite"></section>
+      <p class="source-note">データ出典: <a href="https://ads.tiktok.com/business/creativecenter/pc/ja" target="_blank" rel="noopener">TikTok Creative Center</a></p>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>本サイトはTikTok公式とは関係のない個人運営の情報サイトです。</p>
+      <p>&copy; <span id="year"></span> TikTokトレンド速報</p>
+    </div>
+  </footer>
+
+  <script src="assets/history.js"></script>
+</body>
+</html>

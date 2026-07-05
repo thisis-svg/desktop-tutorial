@@ -11,11 +11,13 @@
  */
 
 import { chromium } from "playwright";
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const OUT_PATH = join(dirname(fileURLToPath(import.meta.url)), "..", "data", "trends.json");
+const DATA_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "data");
+const OUT_PATH = join(DATA_DIR, "trends.json");
+const HISTORY_DIR = join(DATA_DIR, "history");
 
 const PERIOD_DAYS = 7;
 const REGIONS = ["JP", "US"];
@@ -222,6 +224,83 @@ function nowJst() {
   return `${jst.getUTCFullYear()}-${pad(jst.getUTCMonth() + 1)}-${pad(jst.getUTCDate())} ${pad(jst.getUTCHours())}:${pad(jst.getUTCMinutes())} JST`;
 }
 
+/* ---------- 履歴と前日比較 ---------- */
+
+function listHistoryDates() {
+  try {
+    return readdirSync(HISTORY_DIR)
+      .filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f))
+      .map((f) => f.slice(0, 10))
+      .sort();
+  } catch {
+    return [];
+  }
+}
+
+function loadHistory(date) {
+  try {
+    return JSON.parse(readFileSync(join(HISTORY_DIR, `${date}.json`), "utf-8"));
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * 前日(=今日より前の最新履歴)と比較して、各ハッシュタグに
+ * change(new/up/down/same)・delta(順位変動幅)・streak(連続ランクイン日数)を付与する。
+ */
+function annotateChanges(regions, today) {
+  const pastDates = listHistoryDates().filter((d) => d < today);
+  const baselineDate = pastDates[pastDates.length - 1];
+  const baseline = baselineDate ? loadHistory(baselineDate) : null;
+
+  for (const [code, region] of Object.entries(regions)) {
+    const prevItems = baseline?.regions?.[code]?.hashtags ?? [];
+    for (const item of region.hashtags ?? []) {
+      if (!baseline || !prevItems.length) {
+        item.change = null; // 比較対象なし(初日)
+      } else {
+        const prev = prevItems.find((p) => p.name === item.name);
+        if (!prev) item.change = "new";
+        else if (prev.rank > item.rank) {
+          item.change = "up";
+          item.delta = prev.rank - item.rank;
+        } else if (prev.rank < item.rank) {
+          item.change = "down";
+          item.delta = item.rank - prev.rank;
+        } else item.change = "same";
+      }
+      // 連続ランクイン日数: 昨日から1日ずつ遡り、履歴に載っている限りカウント
+      let streak = 1;
+      let d = new Date(`${today}T00:00:00Z`);
+      for (;;) {
+        d = new Date(d.getTime() - 86400000);
+        const h = loadHistory(d.toISOString().slice(0, 10));
+        if (!h) break;
+        const found = (h.regions?.[code]?.hashtags ?? []).some((p) => p.name === item.name);
+        if (!found) break;
+        streak++;
+      }
+      item.streak = streak;
+    }
+  }
+}
+
+/** 当日分の履歴ファイルと日付インデックスを書き出す */
+function writeHistory(output) {
+  mkdirSync(HISTORY_DIR, { recursive: true });
+  writeFileSync(
+    join(HISTORY_DIR, `${output.date}.json`),
+    JSON.stringify({ date: output.date, regions: output.regions }, null, 2) + "\n",
+    "utf-8"
+  );
+  writeFileSync(
+    join(HISTORY_DIR, "index.json"),
+    JSON.stringify(listHistoryDates(), null, 2) + "\n",
+    "utf-8"
+  );
+}
+
 async function main() {
   const previous = loadPrevious();
   // サンプルデータは引き継がない(実データのみ維持する)
@@ -269,16 +348,21 @@ async function main() {
     process.exit(1);
   }
 
+  const today = nowJst().slice(0, 10);
+  annotateChanges(regions, today);
+
   const output = {
     updated_at: nowJst(),
+    date: today,
     period_days: PERIOD_DAYS,
     source: "TikTok Creative Center",
     is_sample: false,
     regions,
   };
 
-  mkdirSync(dirname(OUT_PATH), { recursive: true });
+  mkdirSync(DATA_DIR, { recursive: true });
   writeFileSync(OUT_PATH, JSON.stringify(output, null, 2) + "\n", "utf-8");
+  writeHistory(output);
   console.log(`書き込み完了: ${OUT_PATH} (成功 ${success} / 失敗 ${failure})`);
 }
 
