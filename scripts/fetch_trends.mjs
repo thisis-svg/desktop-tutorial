@@ -124,28 +124,33 @@ const scrapeSongs = scrapeRows;
 /** 失敗解析用の診断情報をログに出す */
 async function dumpDiagnostics(page, label) {
   const diag = await page.evaluate(() => {
-    const ssr = (() => {
-      try {
-        return JSON.stringify(window._SSR_DATA ?? {});
-      } catch {
-        return "";
+    // ページ本文(データ行が描画されているかの確認用)
+    const bodyText = document.body.innerText.slice(0, 2500).replace(/\n+/g, " | ");
+    // ドキュメント内の全クラス名(ユニーク、上限付き)
+    const classSet = new Set();
+    for (const el of document.querySelectorAll("[class]")) {
+      for (const c of el.classList) {
+        classSet.add(c);
+        if (classSet.size >= 300) break;
       }
-    })();
-    const count = (s, sub) => s.split(sub).length - 1;
-    const firstCard = document.querySelector('[class*="Card"], [class*="card"]');
-    return {
-      bodyTextHead: document.body.innerText.slice(0, 300).replace(/\n+/g, " | "),
-      ssrLen: ssr.length,
-      ssrHits: {
-        hashtag_name: count(ssr, "hashtag_name"),
-        hashtagName: count(ssr, "hashtagName"),
-        musicName: count(ssr, "musicName"),
-        sound: count(ssr, "sound"),
-      },
-      firstCardHtml: firstCard ? firstCard.outerHTML.slice(0, 400) : "(カード要素なし)",
-    };
+      if (classSet.size >= 300) break;
+    }
+    // "#〜" テキストを持つ末端要素(ハッシュタグセル候補)
+    const hashEls = [...document.querySelectorAll("*")]
+      .filter((el) => el.children.length === 0 && /^#\s?\S/.test((el.textContent || "").trim()))
+      .slice(0, 5)
+      .map((el) => `${el.tagName}.${el.className}:「${(el.textContent || "").trim().slice(0, 30)}」`);
+    // 関連しそうなアンカー
+    const anchors = [...document.querySelectorAll("a[href]")]
+      .map((a) => a.getAttribute("href"))
+      .filter((h) => /hashtag|music|song/i.test(h || ""))
+      .slice(0, 10);
+    return { bodyText, classes: [...classSet].join(" "), hashEls, anchors };
   });
-  console.log(`[${label}] 診断:`, JSON.stringify(diag).slice(0, 1200));
+  console.log(`[${label}] 本文:`, diag.bodyText);
+  console.log(`[${label}] クラス一覧:`, diag.classes.slice(0, 3000));
+  console.log(`[${label}] #要素:`, JSON.stringify(diag.hashEls));
+  console.log(`[${label}] アンカー:`, JSON.stringify(diag.anchors));
 }
 
 /* ---------- 収集フロー ---------- */
