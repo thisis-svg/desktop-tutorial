@@ -2,10 +2,9 @@
  * TikTok Creative Center からトレンドデータ(ハッシュタグ・楽曲)を取得して
  * data/trends.json を更新するスクリプト。
  *
- * Creative Center はSSR(サーバーサイドレンダリング)で、ランキングデータは
- * window._SSR_DATA / window._ROUTER_DATA に埋め込まれている。
- * Playwright でページを開き、この埋め込みデータを抽出する。
- * 地域指定はURLクエリパラメータの候補を試し、効いたものを使う。
+ * APIは署名必須(40101)・SSRデータにも生配列が無いため、
+ * Playwright でページを開き、描画済みのDOMからカード情報を直接抽出する。
+ * 地域切替はヘッダーの国セレクタ(.trends-header-country-select)をUI操作する。
  *
  * - 取得に失敗したセクションは前回データを維持する
  * - 全セクション失敗時は exit 1(Actions の失敗通知で気付けるように)
@@ -19,9 +18,7 @@ import { fileURLToPath } from "node:url";
 const OUT_PATH = join(dirname(fileURLToPath(import.meta.url)), "..", "data", "trends.json");
 
 const PERIOD_DAYS = 7;
-const REGIONS = ["JP", "US"];
-// 地域指定に使うURLパラメータ名の候補(効いたものを採用する)
-const REGION_PARAM_CANDIDATES = ["country_code", "countryCode", "region", "country"];
+const REGIONS = { JP: "Japan", US: "United States" };
 
 const HASHTAG_PAGE =
   "https://ads.tiktok.com/business/creativecenter/inspiration/popular/hashtag/pc/en";
@@ -31,171 +28,230 @@ const MUSIC_PAGE =
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-function pick(obj, keys, dflt = null) {
-  for (const k of keys) {
-    if (obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== "") return obj[k];
-  }
-  return dflt;
+/* ---------- ユーティリティ ---------- */
+
+/** "1.2M" "114.4K" "12,345" のような表示値を数値に変換 */
+function parseCount(text) {
+  if (!text) return null;
+  const m = String(text).replace(/,/g, "").match(/([\d.]+)\s*([KMB])?/i);
+  if (!m) return null;
+  let n = parseFloat(m[1]);
+  const unit = (m[2] || "").toUpperCase();
+  if (unit === "K") n *= 1e3;
+  else if (unit === "M") n *= 1e6;
+  else if (unit === "B") n *= 1e9;
+  return Math.round(n);
 }
 
-/* ---------- SSRデータからの抽出 ---------- */
-
-/**
- * ページ内のSSR状態オブジェクトから、判定関数にマッチする
- * 「オブジェクトの配列」をすべて探して返す。
- */
-async function extractArrays(page, matcherSource) {
-  return await page.evaluate((matcherSrc) => {
-    const matcher = new Function("item", `return (${matcherSrc})(item);`);
-    const results = [];
-    const seen = new Set();
-    const walk = (obj, path) => {
-      if (obj === null || typeof obj !== "object") return;
-      if (seen.has(obj)) return;
-      seen.add(obj);
-      if (Array.isArray(obj)) {
-        if (obj.length && obj[0] && typeof obj[0] === "object" && matcher(obj[0])) {
-          results.push({ path, items: obj });
-        }
-        obj.forEach((v, i) => walk(v, `${path}[${i}]`));
-      } else {
-        for (const [k, v] of Object.entries(obj)) walk(v, `${path}.${k}`);
-      }
-    };
-    for (const key of ["_SSR_DATA", "_ROUTER_DATA"]) {
-      try {
-        if (window[key]) walk(window[key], key);
-      } catch {
-        /* 走査エラーは無視 */
-      }
+async function dismissCookieBanner(page) {
+  for (const label of ["Allow all", "Accept all", "Accept", "Agree", "同意"]) {
+    try {
+      await page.getByRole("button", { name: label }).first().click({ timeout: 1500 });
+      console.log(`Cookieバナーを閉じました (${label})`);
+      return;
+    } catch {
+      /* 次の候補へ */
     }
-    return results;
-  }, matcherSource);
-}
-
-const HASHTAG_MATCHER = `(item) => typeof item === "object" && "hashtag_name" in item`;
-const SONG_MATCHER = `(item) => typeof item === "object" && ("song_id" in item || ("title" in item && "author" in item))`;
-
-function parseHashtagItems(items) {
-  return items
-    .map((it, i) => {
-      const name = pick(it, ["hashtag_name", "name"]);
-      if (!name) return null;
-      return {
-        rank: pick(it, ["rank"], i + 1),
-        name,
-        posts: pick(it, ["publish_cnt", "publish_count"]),
-        views: pick(it, ["video_views", "video_view_count"]),
-        url: `https://www.tiktok.com/tag/${encodeURIComponent(name)}`,
-      };
-    })
-    .filter(Boolean);
-}
-
-function parseSongItems(items) {
-  return items
-    .map((it, i) => {
-      const title = pick(it, ["title", "song_name"]);
-      if (!title) return null;
-      return {
-        rank: pick(it, ["rank"], i + 1),
-        title,
-        author: pick(it, ["author", "artist_name"], ""),
-        url:
-          pick(it, ["link", "song_link"]) ||
-          `https://www.tiktok.com/search?q=${encodeURIComponent(title)}`,
-        cover: pick(it, ["cover", "cover_url"], ""),
-      };
-    })
-    .filter(Boolean);
-}
-
-/** ページを開いてSSRデータから最良の配列(最も件数が多いもの)を抽出 */
-async function loadAndExtract(page, url, matcher, parse, diagLabel) {
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 90000 });
-  await page.waitForTimeout(3000);
-  const found = await extractArrays(page, matcher);
-  if (!found.length) {
-    console.log(`[${diagLabel}] SSRデータ内に該当配列なし: ${url}`);
-    return [];
   }
-  found.sort((a, b) => b.items.length - a.items.length);
-  const best = found[0];
-  const parsed = parse(best.items);
-  console.log(
-    `[${diagLabel}] ${parsed.length}件抽出 (path=${best.path.slice(0, 100)}) 上位: ${parsed
-      .slice(0, 3)
-      .map((x) => x.name || x.title)
-      .join(", ")}`
-  );
-  return parsed;
 }
 
-/**
- * 地域ごとのデータを収集する。
- * まず地域パラメータなしで読み込み、次に各候補パラメータでJPを読み込んで
- * 内容が変化するか確認し、効いたパラメータで全地域を取得する。
- */
-async function collectByRegion(context, baseUrl, matcher, parse, diagLabel) {
-  const page = await context.newPage();
-  const collected = {};
+/** 現在選択中の国名を返す */
+async function currentRegionLabel(page) {
   try {
-    const defaultItems = await loadAndExtract(
-      page,
-      `${baseUrl}?period=${PERIOD_DAYS}`,
-      matcher,
-      parse,
-      `${diagLabel}:default`
-    );
-    const defaultTop = defaultItems[0]?.name || defaultItems[0]?.title || "";
+    return (
+      (await page
+        .locator(".trends-header-country-select")
+        .first()
+        .textContent({ timeout: 5000 })) || ""
+    ).trim();
+  } catch {
+    return "";
+  }
+}
 
-    let workingParam = null;
-    for (const param of REGION_PARAM_CANDIDATES) {
-      const items = await loadAndExtract(
-        page,
-        `${baseUrl}?period=${PERIOD_DAYS}&${param}=JP`,
-        matcher,
-        parse,
-        `${diagLabel}:${param}=JP`
-      );
-      const top = items[0]?.name || items[0]?.title || "";
-      if (items.length && top && top !== defaultTop) {
-        workingParam = param;
-        collected.JP = items;
-        console.log(`[${diagLabel}] 地域パラメータ「${param}」が有効`);
-        break;
+/** 国セレクタを操作して地域を切り替える */
+async function switchRegion(page, label) {
+  await page.locator(".trends-header-country-select").first().click({ timeout: 10000 });
+  await page.waitForTimeout(600);
+  // セレクタは検索入力付き。国名を入力して絞り込む
+  try {
+    await page.keyboard.type(label, { delay: 30 });
+  } catch {
+    /* 入力不可でも続行 */
+  }
+  await page.waitForTimeout(1000);
+  // ドロップダウンの選択肢をクリック
+  const option = page
+    .locator('[class*="option"], [role="option"], li')
+    .filter({ hasText: label })
+    .last();
+  await option.click({ timeout: 6000 });
+  await page.waitForTimeout(5000); // データ再描画を待つ
+}
+
+/* ---------- DOM抽出 ---------- */
+
+async function scrapeHashtags(page) {
+  return await page.evaluate(() => {
+    // ハッシュタグ詳細ページへのリンクを持つカードを探す
+    const seen = new Set();
+    const items = [];
+    // タイトル要素の候補: クラス名に titleText を含む要素、または "# " で始まるテキスト
+    const titleEls = [
+      ...document.querySelectorAll('[class*="titleText"], [class*="CardPc_titleText"]'),
+    ];
+    const candidates = titleEls.length
+      ? titleEls
+      : [...document.querySelectorAll("span, h3, a")].filter((el) => {
+          const t = (el.textContent || "").trim();
+          return /^#\s?\S/.test(t) && t.length < 60 && el.children.length === 0;
+        });
+    for (const el of candidates) {
+      const raw = (el.textContent || "").trim();
+      const name = raw.replace(/^#\s*/, "").trim();
+      if (!name || seen.has(name)) continue;
+      seen.add(name);
+      // 同じカード内の投稿数表示を探す
+      let posts = null;
+      let node = el;
+      for (let up = 0; up < 5 && node; up++) {
+        node = node.parentElement;
+        if (!node) break;
+        const v = node.querySelector('[class*="itemValue"], [class*="Value"]');
+        if (v) {
+          posts = v.textContent.trim();
+          break;
+        }
       }
+      items.push({ name, postsText: posts });
     }
+    return items;
+  });
+}
 
-    if (workingParam) {
-      for (const code of REGIONS) {
-        if (collected[code]) continue;
-        const items = await loadAndExtract(
-          page,
-          `${baseUrl}?period=${PERIOD_DAYS}&${workingParam}=${code}`,
-          matcher,
-          parse,
-          `${diagLabel}:${code}`
+async function scrapeSongs(page) {
+  return await page.evaluate(() => {
+    const items = [];
+    const seen = new Set();
+    const nameEls = [
+      ...document.querySelectorAll(
+        '[class*="musicName"], [class*="MusicName"], [class*="ItemCard_title"]'
+      ),
+    ];
+    for (const el of nameEls) {
+      const title = (el.textContent || "").trim();
+      if (!title || seen.has(title)) continue;
+      seen.add(title);
+      let author = "";
+      let cover = "";
+      let node = el;
+      for (let up = 0; up < 6 && node; up++) {
+        node = node.parentElement;
+        if (!node) break;
+        const a = node.querySelector(
+          '[class*="autherName"], [class*="authorName"], [class*="singer"], [class*="Author"]'
         );
-        if (items.length) collected[code] = items;
+        if (a && !author) author = a.textContent.trim();
+        const img = node.querySelector("img");
+        if (img && !cover) cover = img.src || "";
+        if (author) break;
       }
-    } else {
-      console.error(
-        `[${diagLabel}] 有効な地域パラメータが見つかりません。既定地域のデータのみ使用します。`
-      );
-      // 既定はランナーのIPに基づく(通常US)
-      if (defaultItems.length) collected.US = defaultItems;
-      // 診断: 地域セレクタらしき要素を記録(次回改修のヒント用)
-      const diag = await page.evaluate(() => {
-        const els = [...document.querySelectorAll('[class*="elect"], [role="combobox"]')].slice(0, 8);
-        return els.map((el) => `${el.tagName}.${el.className}`.slice(0, 120));
-      });
-      console.log(`[${diagLabel}] 診断: セレクタ候補要素:`, JSON.stringify(diag));
+      items.push({ title, author, cover });
+    }
+    return items;
+  });
+}
+
+/** 失敗解析用の診断情報をログに出す */
+async function dumpDiagnostics(page, label) {
+  const diag = await page.evaluate(() => {
+    const ssr = (() => {
+      try {
+        return JSON.stringify(window._SSR_DATA ?? {});
+      } catch {
+        return "";
+      }
+    })();
+    const count = (s, sub) => s.split(sub).length - 1;
+    const firstCard = document.querySelector('[class*="Card"], [class*="card"]');
+    return {
+      bodyTextHead: document.body.innerText.slice(0, 300).replace(/\n+/g, " | "),
+      ssrLen: ssr.length,
+      ssrHits: {
+        hashtag_name: count(ssr, "hashtag_name"),
+        hashtagName: count(ssr, "hashtagName"),
+        musicName: count(ssr, "musicName"),
+        sound: count(ssr, "sound"),
+      },
+      firstCardHtml: firstCard ? firstCard.outerHTML.slice(0, 400) : "(カード要素なし)",
+    };
+  });
+  console.log(`[${label}] 診断:`, JSON.stringify(diag).slice(0, 1200));
+}
+
+/* ---------- 収集フロー ---------- */
+
+async function collect(context, pageUrl, scrape, normalize, diagLabel) {
+  const page = await context.newPage();
+  const byRegion = {};
+  try {
+    await page.goto(`${pageUrl}?period=${PERIOD_DAYS}`, {
+      waitUntil: "domcontentloaded",
+      timeout: 90000,
+    });
+    await dismissCookieBanner(page);
+    await page.waitForTimeout(6000);
+
+    for (const [code, label] of Object.entries(REGIONS)) {
+      const current = await currentRegionLabel(page);
+      console.log(`[${diagLabel}] 現在の地域表示: "${current}" → 目標: ${label}`);
+      if (!current.includes(label)) {
+        try {
+          await switchRegion(page, label);
+        } catch (e) {
+          console.error(`[${diagLabel}] 地域切替失敗 (${label}): ${e.message}`);
+          continue;
+        }
+      }
+      const raw = await scrape(page);
+      const items = normalize(raw);
+      if (items.length) {
+        byRegion[code] = items;
+        console.log(
+          `[${diagLabel}] ${code}: ${items.length}件 上位: ${items
+            .slice(0, 3)
+            .map((x) => x.name || x.title)
+            .join(", ")}`
+        );
+      } else {
+        console.error(`[${diagLabel}] ${code}: 0件`);
+        await dumpDiagnostics(page, `${diagLabel}:${code}`);
+      }
     }
   } finally {
     await page.close();
   }
-  return collected;
+  return byRegion;
+}
+
+function normalizeHashtags(raw) {
+  return raw.slice(0, 30).map((it, i) => ({
+    rank: i + 1,
+    name: it.name,
+    posts: parseCount(it.postsText),
+    views: null,
+    url: `https://www.tiktok.com/tag/${encodeURIComponent(it.name)}`,
+  }));
+}
+
+function normalizeSongs(raw) {
+  return raw.slice(0, 30).map((it, i) => ({
+    rank: i + 1,
+    title: it.title,
+    author: it.author || "",
+    url: `https://www.tiktok.com/search?q=${encodeURIComponent(it.title)}`,
+    cover: it.cover || "",
+  }));
 }
 
 /* ---------- 出力 ---------- */
@@ -222,22 +278,20 @@ async function main() {
   const prevRegions = previous.regions ?? {};
 
   const browser = await chromium.launch();
-  const context = await browser.newContext({ userAgent: UA, locale: "en-US" });
+  const context = await browser.newContext({
+    userAgent: UA,
+    locale: "en-US",
+    viewport: { width: 1440, height: 900 },
+  });
 
-  const hashtagsByRegion = await collectByRegion(
+  const hashtagsByRegion = await collect(
     context,
     HASHTAG_PAGE,
-    HASHTAG_MATCHER,
-    parseHashtagItems,
+    scrapeHashtags,
+    normalizeHashtags,
     "hashtags"
   );
-  const songsByRegion = await collectByRegion(
-    context,
-    MUSIC_PAGE,
-    SONG_MATCHER,
-    parseSongItems,
-    "songs"
-  );
+  const songsByRegion = await collect(context, MUSIC_PAGE, scrapeSongs, normalizeSongs, "songs");
 
   await browser.close();
 
@@ -245,7 +299,7 @@ async function main() {
   let success = 0;
   let failure = 0;
 
-  for (const code of REGIONS) {
+  for (const code of Object.keys(REGIONS)) {
     const prev = prevRegions[code] ?? {};
     const region = { hashtags: prev.hashtags ?? [], songs: prev.songs ?? [] };
 
