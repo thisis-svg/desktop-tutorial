@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-12",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "三角チョコパイ",
+          "posts": 2300,
+          "views": 25500000,
+          "url": "https://www.tiktok.com/tag/%E4%B8%89%E8%A7%92%E3%83%81%E3%83%A7%E3%82%B3%E3%83%91%E3%82%A4",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 2,
+          "name": "メッシ",
+          "posts": 1900,
+          "views": 25500000,
+          "url": "https://www.tiktok.com/tag/%E3%83%A1%E3%83%83%E3%82%B7",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "amazing",
+          "posts": 2500,
+          "views": 4100000,
+          "url": "https://www.tiktok.com/tag/amazing",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "hurricaneisaias",
+          "posts": 24200,
+          "views": 180900000,
+          "url": "https://www.tiktok.com/tag/hurricaneisaias",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 2,
+          "name": "fgteev",
+          "posts": 19800,
+          "views": 368800000,
+          "url": "https://www.tiktok.com/tag/fgteev",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "justgolive",
+          "posts": 20100,
+          "views": 25800000,
+          "url": "https://www.tiktok.com/tag/justgolive",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    }
+  }
+}
