@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-12 09:17 JST",
-  "date": "2026-10-12",
+  "updated_at": "2026-10-13 11:28 JST",
+  "date": "2026-10-13",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -13,8 +13,8 @@
           "posts": 2300,
           "views": 25500000,
           "url": "https://www.tiktok.com/tag/%E4%B8%89%E8%A7%92%E3%83%81%E3%83%A7%E3%82%B3%E3%83%91%E3%82%A4",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 2,
@@ -22,8 +22,8 @@
           "posts": 1900,
           "views": 25500000,
           "url": "https://www.tiktok.com/tag/%E3%83%A1%E3%83%83%E3%82%B7",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 3,
@@ -31,8 +31,8 @@
           "posts": 2500,
           "views": 4100000,
           "url": "https://www.tiktok.com/tag/amazing",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         }
       ],
       "songs": []
@@ -45,8 +45,8 @@
           "posts": 24200,
           "views": 180900000,
           "url": "https://www.tiktok.com/tag/hurricaneisaias",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 2,
@@ -54,8 +54,8 @@
           "posts": 19800,
           "views": 368800000,
           "url": "https://www.tiktok.com/tag/fgteev",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 3,
@@ -63,8 +63,8 @@
           "posts": 20100,
           "views": 25800000,
           "url": "https://www.tiktok.com/tag/justgolive",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         }
       ],
       "songs": []
