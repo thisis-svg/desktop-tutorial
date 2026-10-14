@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-14 09:11 JST",
-  "date": "2026-10-14",
+  "updated_at": "2026-10-15 08:45 JST",
+  "date": "2026-10-15",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -14,7 +14,7 @@
           "views": 31800000,
           "url": "https://www.tiktok.com/tag/%E4%B8%89%E8%A7%92%E3%83%81%E3%83%A7%E3%82%B3%E3%83%91%E3%82%A4",
           "change": "same",
-          "streak": 3
+          "streak": 4
         },
         {
           "rank": 2,
@@ -23,7 +23,7 @@
           "views": 26500000,
           "url": "https://www.tiktok.com/tag/%E3%83%A1%E3%83%83%E3%82%B7",
           "change": "same",
-          "streak": 3
+          "streak": 4
         },
         {
           "rank": 3,
@@ -31,8 +31,8 @@
           "posts": 5400,
           "views": 4800000,
           "url": "https://www.tiktok.com/tag/familytime",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         }
       ],
       "songs": []
@@ -46,7 +46,7 @@
           "views": 228100000,
           "url": "https://www.tiktok.com/tag/hurricaneisaias",
           "change": "same",
-          "streak": 3
+          "streak": 4
         },
         {
           "rank": 2,
@@ -54,8 +54,8 @@
           "posts": 107300,
           "views": 20300000,
           "url": "https://www.tiktok.com/tag/marvelrivalsavengers",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 3,
@@ -63,8 +63,8 @@
           "posts": 29100,
           "views": 74900000,
           "url": "https://www.tiktok.com/tag/tiktokscaryhorrorcontest",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         }
       ],
       "songs": []
