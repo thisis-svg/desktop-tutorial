@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-16",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "三角チョコパイ",
+          "posts": 3000,
+          "views": 33500000,
+          "url": "https://www.tiktok.com/tag/%E4%B8%89%E8%A7%92%E3%83%81%E3%83%A7%E3%82%B3%E3%83%91%E3%82%A4",
+          "change": "same",
+          "streak": 5
+        },
+        {
+          "rank": 2,
+          "name": "アイカツ",
+          "posts": 2000,
+          "views": 20000000,
+          "url": "https://www.tiktok.com/tag/%E3%82%A2%E3%82%A4%E3%82%AB%E3%83%84",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "多摩川",
+          "posts": 1400,
+          "views": 12800000,
+          "url": "https://www.tiktok.com/tag/%E5%A4%9A%E6%91%A9%E5%B7%9D",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "hurricaneisaias",
+          "posts": 31700,
+          "views": 235700000,
+          "url": "https://www.tiktok.com/tag/hurricaneisaias",
+          "change": "same",
+          "streak": 5
+        },
+        {
+          "rank": 2,
+          "name": "tiktokscaryhorrorcontest",
+          "posts": 43500,
+          "views": 131300000,
+          "url": "https://www.tiktok.com/tag/tiktokscaryhorrorcontest",
+          "change": "up",
+          "delta": 1,
+          "streak": 3
+        },
+        {
+          "rank": 3,
+          "name": "marvelrivalsavengers",
+          "posts": 107600,
+          "views": 21700000,
+          "url": "https://www.tiktok.com/tag/marvelrivalsavengers",
+          "change": "down",
+          "delta": 1,
+          "streak": 3
+        }
+      ],
+      "songs": []
+    }
+  }
+}
