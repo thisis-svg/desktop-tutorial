@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-17",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "多摩川で恋してみたい",
+          "posts": 1500,
+          "views": 16600000,
+          "url": "https://www.tiktok.com/tag/%E5%A4%9A%E6%91%A9%E5%B7%9D%E3%81%A7%E6%81%8B%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%81%84",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 2,
+          "name": "多摩川",
+          "posts": 1500,
+          "views": 16400000,
+          "url": "https://www.tiktok.com/tag/%E5%A4%9A%E6%91%A9%E5%B7%9D",
+          "change": "up",
+          "delta": 1,
+          "streak": 2
+        },
+        {
+          "rank": 3,
+          "name": "tvshow",
+          "posts": 2400,
+          "views": 16000000,
+          "url": "https://www.tiktok.com/tag/tvshow",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "tiktokscaryhorrorcontest",
+          "posts": 57800,
+          "views": 211800000,
+          "url": "https://www.tiktok.com/tag/tiktokscaryhorrorcontest",
+          "change": "up",
+          "delta": 1,
+          "streak": 4
+        },
+        {
+          "rank": 2,
+          "name": "marvelrivalsavengers",
+          "posts": 108900,
+          "views": 23000000,
+          "url": "https://www.tiktok.com/tag/marvelrivalsavengers",
+          "change": "up",
+          "delta": 1,
+          "streak": 4
+        },
+        {
+          "rank": 3,
+          "name": "hurricaneisaias",
+          "posts": 32000,
+          "views": 237400000,
+          "url": "https://www.tiktok.com/tag/hurricaneisaias",
+          "change": "down",
+          "delta": 2,
+          "streak": 6
+        }
+      ],
+      "songs": []
+    }
+  }
+}
