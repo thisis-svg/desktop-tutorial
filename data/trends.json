@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-17 08:18 JST",
-  "date": "2026-10-17",
+  "updated_at": "2026-10-18 07:56 JST",
+  "date": "2026-10-18",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -10,28 +10,27 @@
         {
           "rank": 1,
           "name": "多摩川で恋してみたい",
-          "posts": 1500,
-          "views": 16600000,
+          "posts": 1600,
+          "views": 18200000,
           "url": "https://www.tiktok.com/tag/%E5%A4%9A%E6%91%A9%E5%B7%9D%E3%81%A7%E6%81%8B%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%81%84",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 2,
           "name": "多摩川",
-          "posts": 1500,
-          "views": 16400000,
+          "posts": 1600,
+          "views": 19400000,
           "url": "https://www.tiktok.com/tag/%E5%A4%9A%E6%91%A9%E5%B7%9D",
-          "change": "up",
-          "delta": 1,
-          "streak": 2
+          "change": "same",
+          "streak": 3
         },
         {
           "rank": 3,
-          "name": "tvshow",
-          "posts": 2400,
-          "views": 16000000,
-          "url": "https://www.tiktok.com/tag/tvshow",
+          "name": "nature",
+          "posts": 10100,
+          "views": 19200000,
+          "url": "https://www.tiktok.com/tag/nature",
           "change": "new",
           "streak": 1
         }
@@ -43,32 +42,29 @@
         {
           "rank": 1,
           "name": "tiktokscaryhorrorcontest",
-          "posts": 57800,
-          "views": 211800000,
+          "posts": 73500,
+          "views": 312200000,
           "url": "https://www.tiktok.com/tag/tiktokscaryhorrorcontest",
-          "change": "up",
-          "delta": 1,
-          "streak": 4
+          "change": "same",
+          "streak": 5
         },
         {
           "rank": 2,
           "name": "marvelrivalsavengers",
-          "posts": 108900,
-          "views": 23000000,
+          "posts": 110100,
+          "views": 24100000,
           "url": "https://www.tiktok.com/tag/marvelrivalsavengers",
-          "change": "up",
-          "delta": 1,
-          "streak": 4
+          "change": "same",
+          "streak": 5
         },
         {
           "rank": 3,
-          "name": "hurricaneisaias",
-          "posts": 32000,
-          "views": 237400000,
-          "url": "https://www.tiktok.com/tag/hurricaneisaias",
-          "change": "down",
-          "delta": 2,
-          "streak": 6
+          "name": "livecanbeeasy",
+          "posts": 21300,
+          "views": 30200000,
+          "url": "https://www.tiktok.com/tag/livecanbeeasy",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []
