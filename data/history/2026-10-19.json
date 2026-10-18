@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-19",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "多摩川で恋してみたい",
+          "posts": 1600,
+          "views": 18200000,
+          "url": "https://www.tiktok.com/tag/%E5%A4%9A%E6%91%A9%E5%B7%9D%E3%81%A7%E6%81%8B%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%81%84",
+          "change": "same",
+          "streak": 3
+        },
+        {
+          "rank": 2,
+          "name": "多摩川",
+          "posts": 1600,
+          "views": 19400000,
+          "url": "https://www.tiktok.com/tag/%E5%A4%9A%E6%91%A9%E5%B7%9D",
+          "change": "same",
+          "streak": 4
+        },
+        {
+          "rank": 3,
+          "name": "nature",
+          "posts": 10100,
+          "views": 19200000,
+          "url": "https://www.tiktok.com/tag/nature",
+          "change": "same",
+          "streak": 2
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "tiktokscaryhorrorcontest",
+          "posts": 73500,
+          "views": 312200000,
+          "url": "https://www.tiktok.com/tag/tiktokscaryhorrorcontest",
+          "change": "same",
+          "streak": 6
+        },
+        {
+          "rank": 2,
+          "name": "marvelrivalsavengers",
+          "posts": 110100,
+          "views": 24100000,
+          "url": "https://www.tiktok.com/tag/marvelrivalsavengers",
+          "change": "same",
+          "streak": 6
+        },
+        {
+          "rank": 3,
+          "name": "livecanbeeasy",
+          "posts": 21300,
+          "views": 30200000,
+          "url": "https://www.tiktok.com/tag/livecanbeeasy",
+          "change": "same",
+          "streak": 2
+        }
+      ],
+      "songs": []
+    }
+  }
+}
