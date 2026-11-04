@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-03 11:48 JST",
-  "date": "2026-11-03",
+  "updated_at": "2026-11-04 10:06 JST",
+  "date": "2026-11-04",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -9,30 +9,30 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "多摩川で恋してみたい",
-          "posts": 1600,
-          "views": 18200000,
-          "url": "https://www.tiktok.com/tag/%E5%A4%9A%E6%91%A9%E5%B7%9D%E3%81%A7%E6%81%8B%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F%E3%81%84",
-          "change": "same",
-          "streak": 7
+          "name": "淀川花火大会",
+          "posts": 5100,
+          "views": 9500000,
+          "url": "https://www.tiktok.com/tag/%E6%B7%80%E5%B7%9D%E8%8A%B1%E7%81%AB%E5%A4%A7%E4%BC%9A",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 2,
-          "name": "多摩川",
-          "posts": 1600,
-          "views": 19400000,
-          "url": "https://www.tiktok.com/tag/%E5%A4%9A%E6%91%A9%E5%B7%9D",
-          "change": "same",
-          "streak": 7
+          "name": "carsoftiktok",
+          "posts": 4400,
+          "views": 3300000,
+          "url": "https://www.tiktok.com/tag/carsoftiktok",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 3,
-          "name": "nature",
-          "posts": 10100,
-          "views": 19200000,
-          "url": "https://www.tiktok.com/tag/nature",
-          "change": "same",
-          "streak": 7
+          "name": "さとみくん",
+          "posts": 2400,
+          "views": 8100000,
+          "url": "https://www.tiktok.com/tag/%E3%81%95%E3%81%A8%E3%81%BF%E3%81%8F%E3%82%93",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []
@@ -41,30 +41,30 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "tiktokscaryhorrorcontest",
-          "posts": 73500,
-          "views": 312200000,
-          "url": "https://www.tiktok.com/tag/tiktokscaryhorrorcontest",
-          "change": "same",
-          "streak": 7
+          "name": "teslaroadster",
+          "posts": 23100,
+          "views": 341200000,
+          "url": "https://www.tiktok.com/tag/teslaroadster",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 2,
-          "name": "marvelrivalsavengers",
-          "posts": 110100,
-          "views": 24100000,
-          "url": "https://www.tiktok.com/tag/marvelrivalsavengers",
-          "change": "same",
-          "streak": 7
+          "name": "brandrisk",
+          "posts": 33900,
+          "views": 705400000,
+          "url": "https://www.tiktok.com/tag/brandrisk",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 3,
-          "name": "livecanbeeasy",
-          "posts": 21300,
-          "views": 30200000,
-          "url": "https://www.tiktok.com/tag/livecanbeeasy",
-          "change": "same",
-          "streak": 7
+          "name": "roadster",
+          "posts": 12900,
+          "views": 297200000,
+          "url": "https://www.tiktok.com/tag/roadster",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []

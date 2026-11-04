@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-04",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "淀川花火大会",
+          "posts": 5100,
+          "views": 9500000,
+          "url": "https://www.tiktok.com/tag/%E6%B7%80%E5%B7%9D%E8%8A%B1%E7%81%AB%E5%A4%A7%E4%BC%9A",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 2,
+          "name": "carsoftiktok",
+          "posts": 4400,
+          "views": 3300000,
+          "url": "https://www.tiktok.com/tag/carsoftiktok",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "さとみくん",
+          "posts": 2400,
+          "views": 8100000,
+          "url": "https://www.tiktok.com/tag/%E3%81%95%E3%81%A8%E3%81%BF%E3%81%8F%E3%82%93",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "teslaroadster",
+          "posts": 23100,
+          "views": 341200000,
+          "url": "https://www.tiktok.com/tag/teslaroadster",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 2,
+          "name": "brandrisk",
+          "posts": 33900,
+          "views": 705400000,
+          "url": "https://www.tiktok.com/tag/brandrisk",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "roadster",
+          "posts": 12900,
+          "views": 297200000,
+          "url": "https://www.tiktok.com/tag/roadster",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    }
+  }
+}
