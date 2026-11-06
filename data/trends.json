@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-05 10:21 JST",
-  "date": "2026-11-05",
+  "updated_at": "2026-11-06 10:24 JST",
+  "date": "2026-11-06",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -9,30 +9,30 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "淀川花火大会",
-          "posts": 5100,
-          "views": 9500000,
-          "url": "https://www.tiktok.com/tag/%E6%B7%80%E5%B7%9D%E8%8A%B1%E7%81%AB%E5%A4%A7%E4%BC%9A",
-          "change": "same",
-          "streak": 2
+          "name": "sungjinwoo",
+          "posts": 33300,
+          "views": 14100000,
+          "url": "https://www.tiktok.com/tag/sungjinwoo",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 2,
-          "name": "carsoftiktok",
-          "posts": 4400,
-          "views": 3300000,
-          "url": "https://www.tiktok.com/tag/carsoftiktok",
-          "change": "same",
-          "streak": 2
+          "name": "luffy",
+          "posts": 36200,
+          "views": 15700000,
+          "url": "https://www.tiktok.com/tag/luffy",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 3,
-          "name": "さとみくん",
-          "posts": 2400,
-          "views": 8100000,
-          "url": "https://www.tiktok.com/tag/%E3%81%95%E3%81%A8%E3%81%BF%E3%81%8F%E3%82%93",
-          "change": "same",
-          "streak": 2
+          "name": "aot",
+          "posts": 36400,
+          "views": 16900000,
+          "url": "https://www.tiktok.com/tag/aot",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []
@@ -41,30 +41,30 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "teslaroadster",
-          "posts": 23100,
-          "views": 341200000,
-          "url": "https://www.tiktok.com/tag/teslaroadster",
-          "change": "same",
-          "streak": 2
+          "name": "musteatinmycity",
+          "posts": 1100000,
+          "views": 817900000,
+          "url": "https://www.tiktok.com/tag/musteatinmycity",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 2,
-          "name": "brandrisk",
-          "posts": 33900,
-          "views": 705400000,
-          "url": "https://www.tiktok.com/tag/brandrisk",
-          "change": "same",
-          "streak": 2
+          "name": "saturween",
+          "posts": 143200,
+          "views": 171000000,
+          "url": "https://www.tiktok.com/tag/saturween",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 3,
-          "name": "roadster",
-          "posts": 12900,
-          "views": 297200000,
-          "url": "https://www.tiktok.com/tag/roadster",
-          "change": "same",
-          "streak": 2
+          "name": "happyhalloween",
+          "posts": 263500,
+          "views": 300700000,
+          "url": "https://www.tiktok.com/tag/happyhalloween",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []

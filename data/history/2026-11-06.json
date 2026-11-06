@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-06",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "sungjinwoo",
+          "posts": 33300,
+          "views": 14100000,
+          "url": "https://www.tiktok.com/tag/sungjinwoo",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 2,
+          "name": "luffy",
+          "posts": 36200,
+          "views": 15700000,
+          "url": "https://www.tiktok.com/tag/luffy",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "aot",
+          "posts": 36400,
+          "views": 16900000,
+          "url": "https://www.tiktok.com/tag/aot",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "musteatinmycity",
+          "posts": 1100000,
+          "views": 817900000,
+          "url": "https://www.tiktok.com/tag/musteatinmycity",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 2,
+          "name": "saturween",
+          "posts": 143200,
+          "views": 171000000,
+          "url": "https://www.tiktok.com/tag/saturween",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "happyhalloween",
+          "posts": 263500,
+          "views": 300700000,
+          "url": "https://www.tiktok.com/tag/happyhalloween",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    }
+  }
+}
