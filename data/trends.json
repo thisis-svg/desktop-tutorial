@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-06 10:24 JST",
-  "date": "2026-11-06",
+  "updated_at": "2026-11-07 09:41 JST",
+  "date": "2026-11-07",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -9,28 +9,30 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "sungjinwoo",
-          "posts": 33300,
-          "views": 14100000,
-          "url": "https://www.tiktok.com/tag/sungjinwoo",
-          "change": "new",
-          "streak": 1
+          "name": "luffy",
+          "posts": 43600,
+          "views": 17500000,
+          "url": "https://www.tiktok.com/tag/luffy",
+          "change": "up",
+          "delta": 1,
+          "streak": 2
         },
         {
           "rank": 2,
-          "name": "luffy",
-          "posts": 36200,
-          "views": 15700000,
-          "url": "https://www.tiktok.com/tag/luffy",
-          "change": "new",
-          "streak": 1
+          "name": "aot",
+          "posts": 43800,
+          "views": 17700000,
+          "url": "https://www.tiktok.com/tag/aot",
+          "change": "up",
+          "delta": 1,
+          "streak": 2
         },
         {
           "rank": 3,
-          "name": "aot",
-          "posts": 36400,
-          "views": 16900000,
-          "url": "https://www.tiktok.com/tag/aot",
+          "name": "sololeveling",
+          "posts": 40500,
+          "views": 16300000,
+          "url": "https://www.tiktok.com/tag/sololeveling",
           "change": "new",
           "streak": 1
         }
@@ -41,28 +43,29 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "musteatinmycity",
-          "posts": 1100000,
-          "views": 817900000,
-          "url": "https://www.tiktok.com/tag/musteatinmycity",
-          "change": "new",
-          "streak": 1
+          "name": "saturween",
+          "posts": 143400,
+          "views": 174200000,
+          "url": "https://www.tiktok.com/tag/saturween",
+          "change": "up",
+          "delta": 1,
+          "streak": 2
         },
         {
           "rank": 2,
-          "name": "saturween",
-          "posts": 143200,
-          "views": 171000000,
-          "url": "https://www.tiktok.com/tag/saturween",
+          "name": "bluewave",
+          "posts": 74000,
+          "views": 305500000,
+          "url": "https://www.tiktok.com/tag/bluewave",
           "change": "new",
           "streak": 1
         },
         {
           "rank": 3,
-          "name": "happyhalloween",
-          "posts": 263500,
-          "views": 300700000,
-          "url": "https://www.tiktok.com/tag/happyhalloween",
+          "name": "electionday",
+          "posts": 31600,
+          "views": 133800000,
+          "url": "https://www.tiktok.com/tag/electionday",
           "change": "new",
           "streak": 1
         }
