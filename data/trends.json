@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-07 09:41 JST",
-  "date": "2026-11-07",
+  "updated_at": "2026-11-08 09:15 JST",
+  "date": "2026-11-08",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -9,30 +9,28 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "luffy",
-          "posts": 43600,
-          "views": 17500000,
-          "url": "https://www.tiktok.com/tag/luffy",
-          "change": "up",
-          "delta": 1,
-          "streak": 2
+          "name": "プチプラネット",
+          "posts": 5500,
+          "views": 4200000,
+          "url": "https://www.tiktok.com/tag/%E3%83%97%E3%83%81%E3%83%97%E3%83%A9%E3%83%8D%E3%83%83%E3%83%88",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 2,
-          "name": "aot",
-          "posts": 43800,
-          "views": 17700000,
-          "url": "https://www.tiktok.com/tag/aot",
-          "change": "up",
-          "delta": 1,
-          "streak": 2
+          "name": "いい推しの日",
+          "posts": 2800,
+          "views": 2600000,
+          "url": "https://www.tiktok.com/tag/%E3%81%84%E3%81%84%E6%8E%A8%E3%81%97%E3%81%AE%E6%97%A5",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 3,
-          "name": "sololeveling",
-          "posts": 40500,
-          "views": 16300000,
-          "url": "https://www.tiktok.com/tag/sololeveling",
+          "name": "livefest2026",
+          "posts": 5900,
+          "views": 13800000,
+          "url": "https://www.tiktok.com/tag/livefest2026",
           "change": "new",
           "streak": 1
         }
@@ -44,28 +42,27 @@
         {
           "rank": 1,
           "name": "saturween",
-          "posts": 143400,
-          "views": 174200000,
+          "posts": 142300,
+          "views": 168600000,
           "url": "https://www.tiktok.com/tag/saturween",
-          "change": "up",
-          "delta": 1,
-          "streak": 2
+          "change": "same",
+          "streak": 3
         },
         {
           "rank": 2,
           "name": "bluewave",
-          "posts": 74000,
-          "views": 305500000,
+          "posts": 81000,
+          "views": 379500000,
           "url": "https://www.tiktok.com/tag/bluewave",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 3,
-          "name": "electionday",
-          "posts": 31600,
-          "views": 133800000,
-          "url": "https://www.tiktok.com/tag/electionday",
+          "name": "november",
+          "posts": 88400,
+          "views": 282400000,
+          "url": "https://www.tiktok.com/tag/november",
           "change": "new",
           "streak": 1
         }
