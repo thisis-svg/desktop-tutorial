@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-08 09:15 JST",
-  "date": "2026-11-08",
+  "updated_at": "2026-11-09 09:36 JST",
+  "date": "2026-11-09",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -9,30 +9,33 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "プチプラネット",
-          "posts": 5500,
-          "views": 4200000,
-          "url": "https://www.tiktok.com/tag/%E3%83%97%E3%83%81%E3%83%97%E3%83%A9%E3%83%8D%E3%83%83%E3%83%88",
-          "change": "new",
-          "streak": 1
+          "name": "livefest2026",
+          "posts": 11200,
+          "views": 14500000,
+          "url": "https://www.tiktok.com/tag/livefest2026",
+          "change": "up",
+          "delta": 2,
+          "streak": 2
         },
         {
           "rank": 2,
-          "name": "いい推しの日",
-          "posts": 2800,
-          "views": 2600000,
-          "url": "https://www.tiktok.com/tag/%E3%81%84%E3%81%84%E6%8E%A8%E3%81%97%E3%81%AE%E6%97%A5",
-          "change": "new",
-          "streak": 1
+          "name": "プチプラネット",
+          "posts": 5600,
+          "views": 4400000,
+          "url": "https://www.tiktok.com/tag/%E3%83%97%E3%83%81%E3%83%97%E3%83%A9%E3%83%8D%E3%83%83%E3%83%88",
+          "change": "down",
+          "delta": 1,
+          "streak": 2
         },
         {
           "rank": 3,
-          "name": "livefest2026",
-          "posts": 5900,
-          "views": 13800000,
-          "url": "https://www.tiktok.com/tag/livefest2026",
-          "change": "new",
-          "streak": 1
+          "name": "いい推しの日",
+          "posts": 2800,
+          "views": 3100000,
+          "url": "https://www.tiktok.com/tag/%E3%81%84%E3%81%84%E6%8E%A8%E3%81%97%E3%81%AE%E6%97%A5",
+          "change": "down",
+          "delta": 1,
+          "streak": 2
         }
       ],
       "songs": []
@@ -41,28 +44,29 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "saturween",
-          "posts": 142300,
-          "views": 168600000,
-          "url": "https://www.tiktok.com/tag/saturween",
-          "change": "same",
+          "name": "bluewave",
+          "posts": 84900,
+          "views": 425500000,
+          "url": "https://www.tiktok.com/tag/bluewave",
+          "change": "up",
+          "delta": 1,
           "streak": 3
         },
         {
           "rank": 2,
-          "name": "bluewave",
-          "posts": 81000,
-          "views": 379500000,
-          "url": "https://www.tiktok.com/tag/bluewave",
-          "change": "same",
-          "streak": 2
+          "name": "piratetoken",
+          "posts": 22000,
+          "views": 190400000,
+          "url": "https://www.tiktok.com/tag/piratetoken",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 3,
-          "name": "november",
-          "posts": 88400,
-          "views": 282400000,
-          "url": "https://www.tiktok.com/tag/november",
+          "name": "bluetsunami",
+          "posts": 14300,
+          "views": 64000000,
+          "url": "https://www.tiktok.com/tag/bluetsunami",
           "change": "new",
           "streak": 1
         }
