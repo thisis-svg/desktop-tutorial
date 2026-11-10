@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-09 09:36 JST",
-  "date": "2026-11-09",
+  "updated_at": "2026-11-10 12:17 JST",
+  "date": "2026-11-10",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -10,32 +10,30 @@
         {
           "rank": 1,
           "name": "livefest2026",
-          "posts": 11200,
-          "views": 14500000,
+          "posts": 16500,
+          "views": 14600000,
           "url": "https://www.tiktok.com/tag/livefest2026",
-          "change": "up",
-          "delta": 2,
-          "streak": 2
+          "change": "same",
+          "streak": 3
         },
         {
           "rank": 2,
-          "name": "プチプラネット",
-          "posts": 5600,
-          "views": 4400000,
-          "url": "https://www.tiktok.com/tag/%E3%83%97%E3%83%81%E3%83%97%E3%83%A9%E3%83%8D%E3%83%83%E3%83%88",
-          "change": "down",
+          "name": "いい推しの日",
+          "posts": 2800,
+          "views": 3500000,
+          "url": "https://www.tiktok.com/tag/%E3%81%84%E3%81%84%E6%8E%A8%E3%81%97%E3%81%AE%E6%97%A5",
+          "change": "up",
           "delta": 1,
-          "streak": 2
+          "streak": 3
         },
         {
           "rank": 3,
-          "name": "いい推しの日",
-          "posts": 2800,
-          "views": 3100000,
-          "url": "https://www.tiktok.com/tag/%E3%81%84%E3%81%84%E6%8E%A8%E3%81%97%E3%81%AE%E6%97%A5",
-          "change": "down",
-          "delta": 1,
-          "streak": 2
+          "name": "laxmipuja",
+          "posts": 2500,
+          "views": 2100000,
+          "url": "https://www.tiktok.com/tag/laxmipuja",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []
@@ -44,29 +42,30 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "bluewave",
-          "posts": 84900,
-          "views": 425500000,
-          "url": "https://www.tiktok.com/tag/bluewave",
+          "name": "piratetoken",
+          "posts": 33700,
+          "views": 265100000,
+          "url": "https://www.tiktok.com/tag/piratetoken",
           "change": "up",
           "delta": 1,
-          "streak": 3
+          "streak": 2
         },
         {
           "rank": 2,
-          "name": "piratetoken",
-          "posts": 22000,
-          "views": 190400000,
-          "url": "https://www.tiktok.com/tag/piratetoken",
-          "change": "new",
-          "streak": 1
+          "name": "bluewave",
+          "posts": 87600,
+          "views": 456300000,
+          "url": "https://www.tiktok.com/tag/bluewave",
+          "change": "down",
+          "delta": 1,
+          "streak": 4
         },
         {
           "rank": 3,
-          "name": "bluetsunami",
-          "posts": 14300,
-          "views": 64000000,
-          "url": "https://www.tiktok.com/tag/bluetsunami",
+          "name": "token",
+          "posts": 16400,
+          "views": 118000000,
+          "url": "https://www.tiktok.com/tag/token",
           "change": "new",
           "streak": 1
         }
