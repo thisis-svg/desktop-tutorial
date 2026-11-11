@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-10 12:17 JST",
-  "date": "2026-11-10",
+  "updated_at": "2026-11-11 10:06 JST",
+  "date": "2026-11-11",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -10,28 +10,28 @@
         {
           "rank": 1,
           "name": "livefest2026",
-          "posts": 16500,
-          "views": 14600000,
+          "posts": 22700,
+          "views": 14700000,
           "url": "https://www.tiktok.com/tag/livefest2026",
           "change": "same",
-          "streak": 3
+          "streak": 4
         },
         {
           "rank": 2,
-          "name": "いい推しの日",
-          "posts": 2800,
-          "views": 3500000,
-          "url": "https://www.tiktok.com/tag/%E3%81%84%E3%81%84%E6%8E%A8%E3%81%97%E3%81%AE%E6%97%A5",
+          "name": "laxmipuja",
+          "posts": 3200,
+          "views": 3400000,
+          "url": "https://www.tiktok.com/tag/laxmipuja",
           "change": "up",
           "delta": 1,
-          "streak": 3
+          "streak": 2
         },
         {
           "rank": 3,
-          "name": "laxmipuja",
-          "posts": 2500,
-          "views": 2100000,
-          "url": "https://www.tiktok.com/tag/laxmipuja",
+          "name": "tihar",
+          "posts": 2900,
+          "views": 6400000,
+          "url": "https://www.tiktok.com/tag/tihar",
           "change": "new",
           "streak": 1
         }
@@ -43,29 +43,27 @@
         {
           "rank": 1,
           "name": "piratetoken",
-          "posts": 33700,
-          "views": 265100000,
+          "posts": 43700,
+          "views": 325300000,
           "url": "https://www.tiktok.com/tag/piratetoken",
-          "change": "up",
-          "delta": 1,
-          "streak": 2
+          "change": "same",
+          "streak": 3
         },
         {
           "rank": 2,
           "name": "bluewave",
-          "posts": 87600,
-          "views": 456300000,
+          "posts": 89500,
+          "views": 481500000,
           "url": "https://www.tiktok.com/tag/bluewave",
-          "change": "down",
-          "delta": 1,
-          "streak": 4
+          "change": "same",
+          "streak": 5
         },
         {
           "rank": 3,
-          "name": "token",
-          "posts": 16400,
-          "views": 118000000,
-          "url": "https://www.tiktok.com/tag/token",
+          "name": "bluetsunami",
+          "posts": 15500,
+          "views": 73100000,
+          "url": "https://www.tiktok.com/tag/bluetsunami",
           "change": "new",
           "streak": 1
         }
