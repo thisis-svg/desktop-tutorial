@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-12",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "tihar",
+          "posts": 3500,
+          "views": 8100000,
+          "url": "https://www.tiktok.com/tag/tihar",
+          "change": "up",
+          "delta": 2,
+          "streak": 2
+        },
+        {
+          "rank": 2,
+          "name": "laxmipuja",
+          "posts": 3300,
+          "views": 3800000,
+          "url": "https://www.tiktok.com/tag/laxmipuja",
+          "change": "same",
+          "streak": 3
+        },
+        {
+          "rank": 3,
+          "name": "happytihar",
+          "posts": 2700,
+          "views": 4000000,
+          "url": "https://www.tiktok.com/tag/happytihar",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "bluetsunami",
+          "posts": 15800,
+          "views": 76200000,
+          "url": "https://www.tiktok.com/tag/bluetsunami",
+          "change": "up",
+          "delta": 2,
+          "streak": 2
+        },
+        {
+          "rank": 2,
+          "name": "piratetoken",
+          "posts": 51400,
+          "views": 371400000,
+          "url": "https://www.tiktok.com/tag/piratetoken",
+          "change": "down",
+          "delta": 1,
+          "streak": 4
+        },
+        {
+          "rank": 3,
+          "name": "mymoonmyman",
+          "posts": 11900,
+          "views": 30000000,
+          "url": "https://www.tiktok.com/tag/mymoonmyman",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    }
+  }
+}

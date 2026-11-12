@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-11 10:06 JST",
-  "date": "2026-11-11",
+  "updated_at": "2026-11-12 11:09 JST",
+  "date": "2026-11-12",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -9,29 +9,29 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "livefest2026",
-          "posts": 22700,
-          "views": 14700000,
-          "url": "https://www.tiktok.com/tag/livefest2026",
-          "change": "same",
-          "streak": 4
+          "name": "tihar",
+          "posts": 3500,
+          "views": 8100000,
+          "url": "https://www.tiktok.com/tag/tihar",
+          "change": "up",
+          "delta": 2,
+          "streak": 2
         },
         {
           "rank": 2,
           "name": "laxmipuja",
-          "posts": 3200,
-          "views": 3400000,
+          "posts": 3300,
+          "views": 3800000,
           "url": "https://www.tiktok.com/tag/laxmipuja",
-          "change": "up",
-          "delta": 1,
-          "streak": 2
+          "change": "same",
+          "streak": 3
         },
         {
           "rank": 3,
-          "name": "tihar",
-          "posts": 2900,
-          "views": 6400000,
-          "url": "https://www.tiktok.com/tag/tihar",
+          "name": "happytihar",
+          "posts": 2700,
+          "views": 4000000,
+          "url": "https://www.tiktok.com/tag/happytihar",
           "change": "new",
           "streak": 1
         }
@@ -42,28 +42,30 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "piratetoken",
-          "posts": 43700,
-          "views": 325300000,
-          "url": "https://www.tiktok.com/tag/piratetoken",
-          "change": "same",
-          "streak": 3
+          "name": "bluetsunami",
+          "posts": 15800,
+          "views": 76200000,
+          "url": "https://www.tiktok.com/tag/bluetsunami",
+          "change": "up",
+          "delta": 2,
+          "streak": 2
         },
         {
           "rank": 2,
-          "name": "bluewave",
-          "posts": 89500,
-          "views": 481500000,
-          "url": "https://www.tiktok.com/tag/bluewave",
-          "change": "same",
-          "streak": 5
+          "name": "piratetoken",
+          "posts": 51400,
+          "views": 371400000,
+          "url": "https://www.tiktok.com/tag/piratetoken",
+          "change": "down",
+          "delta": 1,
+          "streak": 4
         },
         {
           "rank": 3,
-          "name": "bluetsunami",
-          "posts": 15500,
-          "views": 73100000,
-          "url": "https://www.tiktok.com/tag/bluetsunami",
+          "name": "mymoonmyman",
+          "posts": 11900,
+          "views": 30000000,
+          "url": "https://www.tiktok.com/tag/mymoonmyman",
           "change": "new",
           "streak": 1
         }
