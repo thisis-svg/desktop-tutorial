@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-13 10:43 JST",
-  "date": "2026-11-13",
+  "updated_at": "2026-11-14 10:20 JST",
+  "date": "2026-11-14",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -13,8 +13,8 @@
           "posts": 8600,
           "views": 15400000,
           "url": "https://www.tiktok.com/tag/%E3%83%9D%E3%83%83%E3%82%AD%E3%83%BC%E3%81%AE%E6%97%A5",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 2,
@@ -22,9 +22,8 @@
           "posts": 5700,
           "views": 11000000,
           "url": "https://www.tiktok.com/tag/tihar",
-          "change": "down",
-          "delta": 1,
-          "streak": 3
+          "change": "same",
+          "streak": 4
         },
         {
           "rank": 3,
@@ -33,7 +32,7 @@
           "views": 5800000,
           "url": "https://www.tiktok.com/tag/happytihar",
           "change": "same",
-          "streak": 2
+          "streak": 3
         }
       ],
       "songs": []
@@ -46,8 +45,8 @@
           "posts": 63000,
           "views": 68800000,
           "url": "https://www.tiktok.com/tag/veteransday",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 2,
@@ -55,9 +54,8 @@
           "posts": 19800,
           "views": 43900000,
           "url": "https://www.tiktok.com/tag/mymoonmyman",
-          "change": "up",
-          "delta": 1,
-          "streak": 2
+          "change": "same",
+          "streak": 3
         },
         {
           "rank": 3,
@@ -65,9 +63,8 @@
           "posts": 59100,
           "views": 428300000,
           "url": "https://www.tiktok.com/tag/piratetoken",
-          "change": "down",
-          "delta": 1,
-          "streak": 5
+          "change": "same",
+          "streak": 6
         }
       ],
       "songs": []

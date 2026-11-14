@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-14",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "ポッキーの日",
+          "posts": 8600,
+          "views": 15400000,
+          "url": "https://www.tiktok.com/tag/%E3%83%9D%E3%83%83%E3%82%AD%E3%83%BC%E3%81%AE%E6%97%A5",
+          "change": "same",
+          "streak": 2
+        },
+        {
+          "rank": 2,
+          "name": "tihar",
+          "posts": 5700,
+          "views": 11000000,
+          "url": "https://www.tiktok.com/tag/tihar",
+          "change": "same",
+          "streak": 4
+        },
+        {
+          "rank": 3,
+          "name": "happytihar",
+          "posts": 4600,
+          "views": 5800000,
+          "url": "https://www.tiktok.com/tag/happytihar",
+          "change": "same",
+          "streak": 3
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "veteransday",
+          "posts": 63000,
+          "views": 68800000,
+          "url": "https://www.tiktok.com/tag/veteransday",
+          "change": "same",
+          "streak": 2
+        },
+        {
+          "rank": 2,
+          "name": "mymoonmyman",
+          "posts": 19800,
+          "views": 43900000,
+          "url": "https://www.tiktok.com/tag/mymoonmyman",
+          "change": "same",
+          "streak": 3
+        },
+        {
+          "rank": 3,
+          "name": "piratetoken",
+          "posts": 59100,
+          "views": 428300000,
+          "url": "https://www.tiktok.com/tag/piratetoken",
+          "change": "same",
+          "streak": 6
+        }
+      ],
+      "songs": []
+    }
+  }
+}
