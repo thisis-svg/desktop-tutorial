@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-15 09:51 JST",
-  "date": "2026-11-15",
+  "updated_at": "2026-11-16 09:50 JST",
+  "date": "2026-11-16",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -10,29 +10,29 @@
         {
           "rank": 1,
           "name": "ポッキーの日",
-          "posts": 8600,
-          "views": 15400000,
+          "posts": 10000,
+          "views": 24000000,
           "url": "https://www.tiktok.com/tag/%E3%83%9D%E3%83%83%E3%82%AD%E3%83%BC%E3%81%AE%E6%97%A5",
           "change": "same",
-          "streak": 3
+          "streak": 4
         },
         {
           "rank": 2,
           "name": "tihar",
-          "posts": 5700,
-          "views": 11000000,
+          "posts": 6300,
+          "views": 13700000,
           "url": "https://www.tiktok.com/tag/tihar",
           "change": "same",
-          "streak": 5
+          "streak": 6
         },
         {
           "rank": 3,
           "name": "happytihar",
-          "posts": 4600,
-          "views": 5800000,
+          "posts": 4800,
+          "views": 6900000,
           "url": "https://www.tiktok.com/tag/happytihar",
           "change": "same",
-          "streak": 4
+          "streak": 5
         }
       ],
       "songs": []
@@ -41,30 +41,61 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "veteransday",
-          "posts": 63000,
-          "views": 68800000,
-          "url": "https://www.tiktok.com/tag/veteransday",
-          "change": "same",
-          "streak": 3
+          "name": "mymoonmyman",
+          "posts": 41600,
+          "views": 81100000,
+          "url": "https://www.tiktok.com/tag/mymoonmyman",
+          "change": "up",
+          "delta": 1,
+          "streak": 5
         },
         {
           "rank": 2,
-          "name": "mymoonmyman",
-          "posts": 19800,
-          "views": 43900000,
-          "url": "https://www.tiktok.com/tag/mymoonmyman",
-          "change": "same",
+          "name": "veteransday",
+          "posts": 77800,
+          "views": 143000000,
+          "url": "https://www.tiktok.com/tag/veteransday",
+          "change": "down",
+          "delta": 1,
           "streak": 4
         },
         {
           "rank": 3,
-          "name": "piratetoken",
-          "posts": 59100,
-          "views": 428300000,
-          "url": "https://www.tiktok.com/tag/piratetoken",
-          "change": "same",
-          "streak": 7
+          "name": "outlook",
+          "posts": 14700,
+          "views": 93700000,
+          "url": "https://www.tiktok.com/tag/outlook",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 4,
+          "name": "mymoonmyman",
+          "posts": 41600,
+          "views": 81100000,
+          "url": "https://www.tiktok.com/tag/mymoonmyman",
+          "change": "down",
+          "delta": 2,
+          "streak": 5
+        },
+        {
+          "rank": 5,
+          "name": "veteransday",
+          "posts": 77800,
+          "views": 143000000,
+          "url": "https://www.tiktok.com/tag/veteransday",
+          "change": "down",
+          "delta": 4,
+          "streak": 4
+        },
+        {
+          "rank": 6,
+          "name": "outlook",
+          "posts": 14700,
+          "views": 93700000,
+          "url": "https://www.tiktok.com/tag/outlook",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []
