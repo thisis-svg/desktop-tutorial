@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-17",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "ポッキーの日",
+          "posts": 10200,
+          "views": 27700000,
+          "url": "https://www.tiktok.com/tag/%E3%83%9D%E3%83%83%E3%82%AD%E3%83%BC%E3%81%AE%E6%97%A5",
+          "change": "same",
+          "streak": 5
+        },
+        {
+          "rank": 2,
+          "name": "nature",
+          "posts": 11500,
+          "views": 13700000,
+          "url": "https://www.tiktok.com/tag/nature",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "紅白歌合戦",
+          "posts": 3100,
+          "views": 41900000,
+          "url": "https://www.tiktok.com/tag/%E7%B4%85%E7%99%BD%E6%AD%8C%E5%90%88%E6%88%A6",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "mymoonmyman",
+          "posts": 62100,
+          "views": 120800000,
+          "url": "https://www.tiktok.com/tag/mymoonmyman",
+          "change": "same",
+          "streak": 6
+        },
+        {
+          "rank": 2,
+          "name": "marvelrivalss11",
+          "posts": 134200,
+          "views": 21700000,
+          "url": "https://www.tiktok.com/tag/marvelrivalss11",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "marvelrivalsdoomsday",
+          "posts": 128400,
+          "views": 21600000,
+          "url": "https://www.tiktok.com/tag/marvelrivalsdoomsday",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    }
+  }
+}
