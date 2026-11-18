@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-18",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "ポッキーの日",
+          "posts": 10200,
+          "views": 28300000,
+          "url": "https://www.tiktok.com/tag/%E3%83%9D%E3%83%83%E3%82%AD%E3%83%BC%E3%81%AE%E6%97%A5",
+          "change": "same",
+          "streak": 6
+        },
+        {
+          "rank": 2,
+          "name": "紅白歌合戦",
+          "posts": 3200,
+          "views": 47800000,
+          "url": "https://www.tiktok.com/tag/%E7%B4%85%E7%99%BD%E6%AD%8C%E5%90%88%E6%88%A6",
+          "change": "up",
+          "delta": 1,
+          "streak": 2
+        },
+        {
+          "rank": 3,
+          "name": "nature",
+          "posts": 11500,
+          "views": 13700000,
+          "url": "https://www.tiktok.com/tag/nature",
+          "change": "down",
+          "delta": 1,
+          "streak": 2
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "marvelrivalss11",
+          "posts": 139200,
+          "views": 25200000,
+          "url": "https://www.tiktok.com/tag/marvelrivalss11",
+          "change": "up",
+          "delta": 1,
+          "streak": 2
+        },
+        {
+          "rank": 2,
+          "name": "marvelrivalsdoomsday",
+          "posts": 133300,
+          "views": 25100000,
+          "url": "https://www.tiktok.com/tag/marvelrivalsdoomsday",
+          "change": "up",
+          "delta": 1,
+          "streak": 2
+        },
+        {
+          "rank": 3,
+          "name": "outlook",
+          "posts": 15800,
+          "views": 109800000,
+          "url": "https://www.tiktok.com/tag/outlook",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    }
+  }
+}
