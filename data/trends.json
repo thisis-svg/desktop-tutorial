@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-19 11:21 JST",
-  "date": "2026-11-19",
+  "updated_at": "2026-11-20 11:04 JST",
+  "date": "2026-11-20",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -9,30 +9,31 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "ポッキーの日",
-          "posts": 9400,
-          "views": 26100000,
-          "url": "https://www.tiktok.com/tag/%E3%83%9D%E3%83%83%E3%82%AD%E3%83%BC%E3%81%AE%E6%97%A5",
-          "change": "same",
-          "streak": 7
+          "name": "nature",
+          "posts": 11400,
+          "views": 15000000,
+          "url": "https://www.tiktok.com/tag/nature",
+          "change": "up",
+          "delta": 2,
+          "streak": 4
         },
         {
           "rank": 2,
           "name": "紅白歌合戦",
-          "posts": 3300,
-          "views": 51500000,
+          "posts": 3400,
+          "views": 53800000,
           "url": "https://www.tiktok.com/tag/%E7%B4%85%E7%99%BD%E6%AD%8C%E5%90%88%E6%88%A6",
           "change": "same",
-          "streak": 3
+          "streak": 4
         },
         {
           "rank": 3,
-          "name": "nature",
-          "posts": 11500,
-          "views": 14100000,
-          "url": "https://www.tiktok.com/tag/nature",
-          "change": "same",
-          "streak": 3
+          "name": "tohji",
+          "posts": 2200,
+          "views": 8800000,
+          "url": "https://www.tiktok.com/tag/tohji",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []
@@ -42,29 +43,29 @@
         {
           "rank": 1,
           "name": "marvelrivalss11",
-          "posts": 139700,
-          "views": 26700000,
+          "posts": 139800,
+          "views": 27800000,
           "url": "https://www.tiktok.com/tag/marvelrivalss11",
           "change": "same",
-          "streak": 3
+          "streak": 4
         },
         {
           "rank": 2,
           "name": "marvelrivalsdoomsday",
-          "posts": 133800,
-          "views": 26700000,
+          "posts": 133900,
+          "views": 27700000,
           "url": "https://www.tiktok.com/tag/marvelrivalsdoomsday",
           "change": "same",
-          "streak": 3
+          "streak": 4
         },
         {
           "rank": 3,
           "name": "outlook",
-          "posts": 16000,
-          "views": 111800000,
+          "posts": 16200,
+          "views": 113400000,
           "url": "https://www.tiktok.com/tag/outlook",
           "change": "same",
-          "streak": 2
+          "streak": 3
         }
       ],
       "songs": []
