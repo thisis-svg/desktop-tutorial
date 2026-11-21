@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-20 11:04 JST",
-  "date": "2026-11-20",
+  "updated_at": "2026-11-21 11:00 JST",
+  "date": "2026-11-21",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -13,9 +13,8 @@
           "posts": 11400,
           "views": 15000000,
           "url": "https://www.tiktok.com/tag/nature",
-          "change": "up",
-          "delta": 2,
-          "streak": 4
+          "change": "same",
+          "streak": 5
         },
         {
           "rank": 2,
@@ -24,7 +23,7 @@
           "views": 53800000,
           "url": "https://www.tiktok.com/tag/%E7%B4%85%E7%99%BD%E6%AD%8C%E5%90%88%E6%88%A6",
           "change": "same",
-          "streak": 4
+          "streak": 5
         },
         {
           "rank": 3,
@@ -32,8 +31,8 @@
           "posts": 2200,
           "views": 8800000,
           "url": "https://www.tiktok.com/tag/tohji",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         }
       ],
       "songs": []
@@ -47,7 +46,7 @@
           "views": 27800000,
           "url": "https://www.tiktok.com/tag/marvelrivalss11",
           "change": "same",
-          "streak": 4
+          "streak": 5
         },
         {
           "rank": 2,
@@ -56,7 +55,7 @@
           "views": 27700000,
           "url": "https://www.tiktok.com/tag/marvelrivalsdoomsday",
           "change": "same",
-          "streak": 4
+          "streak": 5
         },
         {
           "rank": 3,
@@ -65,7 +64,7 @@
           "views": 113400000,
           "url": "https://www.tiktok.com/tag/outlook",
           "change": "same",
-          "streak": 3
+          "streak": 4
         }
       ],
       "songs": []
