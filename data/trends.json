@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-21 11:00 JST",
-  "date": "2026-11-21",
+  "updated_at": "2026-11-22 10:03 JST",
+  "date": "2026-11-22",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -14,7 +14,7 @@
           "views": 15000000,
           "url": "https://www.tiktok.com/tag/nature",
           "change": "same",
-          "streak": 5
+          "streak": 6
         },
         {
           "rank": 2,
@@ -23,7 +23,7 @@
           "views": 53800000,
           "url": "https://www.tiktok.com/tag/%E7%B4%85%E7%99%BD%E6%AD%8C%E5%90%88%E6%88%A6",
           "change": "same",
-          "streak": 5
+          "streak": 6
         },
         {
           "rank": 3,
@@ -32,7 +32,7 @@
           "views": 8800000,
           "url": "https://www.tiktok.com/tag/tohji",
           "change": "same",
-          "streak": 2
+          "streak": 3
         }
       ],
       "songs": []
@@ -41,30 +41,30 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "marvelrivalss11",
-          "posts": 139800,
-          "views": 27800000,
-          "url": "https://www.tiktok.com/tag/marvelrivalss11",
-          "change": "same",
-          "streak": 5
+          "name": "huss",
+          "posts": 15400,
+          "views": 41400000,
+          "url": "https://www.tiktok.com/tag/huss",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 2,
-          "name": "marvelrivalsdoomsday",
-          "posts": 133900,
-          "views": 27700000,
-          "url": "https://www.tiktok.com/tag/marvelrivalsdoomsday",
-          "change": "same",
-          "streak": 5
+          "name": "lucia",
+          "posts": 44500,
+          "views": 435500000,
+          "url": "https://www.tiktok.com/tag/lucia",
+          "change": "new",
+          "streak": 1
         },
         {
           "rank": 3,
-          "name": "outlook",
-          "posts": 16200,
-          "views": 113400000,
-          "url": "https://www.tiktok.com/tag/outlook",
-          "change": "same",
-          "streak": 4
+          "name": "husshusshuss",
+          "posts": 13900,
+          "views": 35500000,
+          "url": "https://www.tiktok.com/tag/husshusshuss",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []

@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-22",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "nature",
+          "posts": 11400,
+          "views": 15000000,
+          "url": "https://www.tiktok.com/tag/nature",
+          "change": "same",
+          "streak": 6
+        },
+        {
+          "rank": 2,
+          "name": "紅白歌合戦",
+          "posts": 3400,
+          "views": 53800000,
+          "url": "https://www.tiktok.com/tag/%E7%B4%85%E7%99%BD%E6%AD%8C%E5%90%88%E6%88%A6",
+          "change": "same",
+          "streak": 6
+        },
+        {
+          "rank": 3,
+          "name": "tohji",
+          "posts": 2200,
+          "views": 8800000,
+          "url": "https://www.tiktok.com/tag/tohji",
+          "change": "same",
+          "streak": 3
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "huss",
+          "posts": 15400,
+          "views": 41400000,
+          "url": "https://www.tiktok.com/tag/huss",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 2,
+          "name": "lucia",
+          "posts": 44500,
+          "views": 435500000,
+          "url": "https://www.tiktok.com/tag/lucia",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "husshusshuss",
+          "posts": 13900,
+          "views": 35500000,
+          "url": "https://www.tiktok.com/tag/husshusshuss",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    }
+  }
+}
