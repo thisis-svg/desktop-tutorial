@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-23 10:27 JST",
-  "date": "2026-11-23",
+  "updated_at": "2026-11-24 14:10 JST",
+  "date": "2026-11-24",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -10,29 +10,29 @@
         {
           "rank": 1,
           "name": "gta6",
-          "posts": 8300,
-          "views": 77900000,
+          "posts": 9700,
+          "views": 98700000,
           "url": "https://www.tiktok.com/tag/gta6",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 2,
           "name": "mama",
-          "posts": 3100,
-          "views": 16600000,
+          "posts": 4000,
+          "views": 23200000,
           "url": "https://www.tiktok.com/tag/mama",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         },
         {
           "rank": 3,
-          "name": "tohji",
-          "posts": 2500,
-          "views": 16000000,
-          "url": "https://www.tiktok.com/tag/tohji",
-          "change": "same",
-          "streak": 4
+          "name": "mama2026",
+          "posts": 3600,
+          "views": 21500000,
+          "url": "https://www.tiktok.com/tag/mama2026",
+          "change": "new",
+          "streak": 1
         }
       ],
       "songs": []
@@ -41,32 +41,32 @@
       "hashtags": [
         {
           "rank": 1,
-          "name": "huss",
-          "posts": 20100,
-          "views": 57700000,
-          "url": "https://www.tiktok.com/tag/huss",
-          "change": "same",
-          "streak": 2
-        },
-        {
-          "rank": 2,
           "name": "husshusshuss",
-          "posts": 19400,
-          "views": 48000000,
+          "posts": 24500,
+          "views": 60100000,
           "url": "https://www.tiktok.com/tag/husshusshuss",
           "change": "up",
           "delta": 1,
-          "streak": 2
+          "streak": 3
+        },
+        {
+          "rank": 2,
+          "name": "huss",
+          "posts": 24400,
+          "views": 71600000,
+          "url": "https://www.tiktok.com/tag/huss",
+          "change": "down",
+          "delta": 1,
+          "streak": 3
         },
         {
           "rank": 3,
           "name": "lucia",
-          "posts": 59300,
-          "views": 570300000,
+          "posts": 72600,
+          "views": 679400000,
           "url": "https://www.tiktok.com/tag/lucia",
-          "change": "down",
-          "delta": 1,
-          "streak": 2
+          "change": "same",
+          "streak": 3
         }
       ],
       "songs": []
