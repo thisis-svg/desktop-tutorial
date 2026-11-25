@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-24 14:10 JST",
-  "date": "2026-11-24",
+  "updated_at": "2026-11-25 13:01 JST",
+  "date": "2026-11-25",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -10,29 +10,29 @@
         {
           "rank": 1,
           "name": "gta6",
-          "posts": 9700,
-          "views": 98700000,
+          "posts": 11000,
+          "views": 119900000,
           "url": "https://www.tiktok.com/tag/gta6",
           "change": "same",
-          "streak": 2
+          "streak": 3
         },
         {
           "rank": 2,
           "name": "mama",
-          "posts": 4000,
-          "views": 23200000,
+          "posts": 4500,
+          "views": 28300000,
           "url": "https://www.tiktok.com/tag/mama",
           "change": "same",
-          "streak": 2
+          "streak": 3
         },
         {
           "rank": 3,
           "name": "mama2026",
-          "posts": 3600,
-          "views": 21500000,
+          "posts": 4100,
+          "views": 26400000,
           "url": "https://www.tiktok.com/tag/mama2026",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         }
       ],
       "songs": []
@@ -42,31 +42,29 @@
         {
           "rank": 1,
           "name": "husshusshuss",
-          "posts": 24500,
-          "views": 60100000,
+          "posts": 28500,
+          "views": 71400000,
           "url": "https://www.tiktok.com/tag/husshusshuss",
-          "change": "up",
-          "delta": 1,
-          "streak": 3
+          "change": "same",
+          "streak": 4
         },
         {
           "rank": 2,
           "name": "huss",
-          "posts": 24400,
-          "views": 71600000,
+          "posts": 27800,
+          "views": 84100000,
           "url": "https://www.tiktok.com/tag/huss",
-          "change": "down",
-          "delta": 1,
-          "streak": 3
+          "change": "same",
+          "streak": 4
         },
         {
           "rank": 3,
           "name": "lucia",
-          "posts": 72600,
-          "views": 679400000,
+          "posts": 83400,
+          "views": 766500000,
           "url": "https://www.tiktok.com/tag/lucia",
           "change": "same",
-          "streak": 3
+          "streak": 4
         }
       ],
       "songs": []

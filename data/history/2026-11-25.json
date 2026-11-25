@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-25",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "gta6",
+          "posts": 11000,
+          "views": 119900000,
+          "url": "https://www.tiktok.com/tag/gta6",
+          "change": "same",
+          "streak": 3
+        },
+        {
+          "rank": 2,
+          "name": "mama",
+          "posts": 4500,
+          "views": 28300000,
+          "url": "https://www.tiktok.com/tag/mama",
+          "change": "same",
+          "streak": 3
+        },
+        {
+          "rank": 3,
+          "name": "mama2026",
+          "posts": 4100,
+          "views": 26400000,
+          "url": "https://www.tiktok.com/tag/mama2026",
+          "change": "same",
+          "streak": 2
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "husshusshuss",
+          "posts": 28500,
+          "views": 71400000,
+          "url": "https://www.tiktok.com/tag/husshusshuss",
+          "change": "same",
+          "streak": 4
+        },
+        {
+          "rank": 2,
+          "name": "huss",
+          "posts": 27800,
+          "views": 84100000,
+          "url": "https://www.tiktok.com/tag/huss",
+          "change": "same",
+          "streak": 4
+        },
+        {
+          "rank": 3,
+          "name": "lucia",
+          "posts": 83400,
+          "views": 766500000,
+          "url": "https://www.tiktok.com/tag/lucia",
+          "change": "same",
+          "streak": 4
+        }
+      ],
+      "songs": []
+    }
+  }
+}
