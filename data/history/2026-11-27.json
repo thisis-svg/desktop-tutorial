@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-27",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "mama",
+          "posts": 4900,
+          "views": 33300000,
+          "url": "https://www.tiktok.com/tag/mama",
+          "change": "same",
+          "streak": 5
+        },
+        {
+          "rank": 2,
+          "name": "mama2026",
+          "posts": 4600,
+          "views": 31400000,
+          "url": "https://www.tiktok.com/tag/mama2026",
+          "change": "up",
+          "delta": 1,
+          "streak": 4
+        },
+        {
+          "rank": 3,
+          "name": "ブルーインパルス",
+          "posts": 3100,
+          "views": 14200000,
+          "url": "https://www.tiktok.com/tag/%E3%83%96%E3%83%AB%E3%83%BC%E3%82%A4%E3%83%B3%E3%83%91%E3%83%AB%E3%82%B9",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "actionsceneedits",
+          "posts": 29200,
+          "views": 167300000,
+          "url": "https://www.tiktok.com/tag/actionsceneedits",
+          "change": "same",
+          "streak": 2
+        },
+        {
+          "rank": 2,
+          "name": "mandy",
+          "posts": 15900,
+          "views": 189800000,
+          "url": "https://www.tiktok.com/tag/mandy",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "fiona",
+          "posts": 10400,
+          "views": 129000000,
+          "url": "https://www.tiktok.com/tag/fiona",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    }
+  }
+}
