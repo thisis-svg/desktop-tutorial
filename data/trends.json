@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-11-27 12:31 JST",
-  "date": "2026-11-27",
+  "updated_at": "2026-11-28 12:08 JST",
+  "date": "2026-11-28",
   "period_days": 7,
   "source": "TikTok Creative Center",
   "is_sample": false,
@@ -10,30 +10,29 @@
         {
           "rank": 1,
           "name": "mama",
-          "posts": 4900,
-          "views": 33300000,
+          "posts": 5000,
+          "views": 34500000,
           "url": "https://www.tiktok.com/tag/mama",
           "change": "same",
-          "streak": 5
+          "streak": 6
         },
         {
           "rank": 2,
           "name": "mama2026",
-          "posts": 4600,
-          "views": 31400000,
+          "posts": 4700,
+          "views": 32600000,
           "url": "https://www.tiktok.com/tag/mama2026",
-          "change": "up",
-          "delta": 1,
-          "streak": 4
+          "change": "same",
+          "streak": 5
         },
         {
           "rank": 3,
           "name": "ブルーインパルス",
-          "posts": 3100,
+          "posts": 3200,
           "views": 14200000,
           "url": "https://www.tiktok.com/tag/%E3%83%96%E3%83%AB%E3%83%BC%E3%82%A4%E3%83%B3%E3%83%91%E3%83%AB%E3%82%B9",
-          "change": "new",
-          "streak": 1
+          "change": "same",
+          "streak": 2
         }
       ],
       "songs": []
@@ -43,27 +42,27 @@
         {
           "rank": 1,
           "name": "actionsceneedits",
-          "posts": 29200,
-          "views": 167300000,
+          "posts": 34400,
+          "views": 197900000,
           "url": "https://www.tiktok.com/tag/actionsceneedits",
           "change": "same",
-          "streak": 2
+          "streak": 3
         },
         {
           "rank": 2,
-          "name": "mandy",
-          "posts": 15900,
-          "views": 189800000,
-          "url": "https://www.tiktok.com/tag/mandy",
+          "name": "thanksgivingeve",
+          "posts": 10900,
+          "views": 26500000,
+          "url": "https://www.tiktok.com/tag/thanksgivingeve",
           "change": "new",
           "streak": 1
         },
         {
           "rank": 3,
-          "name": "fiona",
-          "posts": 10400,
-          "views": 129000000,
-          "url": "https://www.tiktok.com/tag/fiona",
+          "name": "thanksgiving",
+          "posts": 622400,
+          "views": 2000000000,
+          "url": "https://www.tiktok.com/tag/thanksgiving",
           "change": "new",
           "streak": 1
         }

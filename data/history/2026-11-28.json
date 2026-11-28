@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-28",
+  "regions": {
+    "JP": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "mama",
+          "posts": 5000,
+          "views": 34500000,
+          "url": "https://www.tiktok.com/tag/mama",
+          "change": "same",
+          "streak": 6
+        },
+        {
+          "rank": 2,
+          "name": "mama2026",
+          "posts": 4700,
+          "views": 32600000,
+          "url": "https://www.tiktok.com/tag/mama2026",
+          "change": "same",
+          "streak": 5
+        },
+        {
+          "rank": 3,
+          "name": "ブルーインパルス",
+          "posts": 3200,
+          "views": 14200000,
+          "url": "https://www.tiktok.com/tag/%E3%83%96%E3%83%AB%E3%83%BC%E3%82%A4%E3%83%B3%E3%83%91%E3%83%AB%E3%82%B9",
+          "change": "same",
+          "streak": 2
+        }
+      ],
+      "songs": []
+    },
+    "US": {
+      "hashtags": [
+        {
+          "rank": 1,
+          "name": "actionsceneedits",
+          "posts": 34400,
+          "views": 197900000,
+          "url": "https://www.tiktok.com/tag/actionsceneedits",
+          "change": "same",
+          "streak": 3
+        },
+        {
+          "rank": 2,
+          "name": "thanksgivingeve",
+          "posts": 10900,
+          "views": 26500000,
+          "url": "https://www.tiktok.com/tag/thanksgivingeve",
+          "change": "new",
+          "streak": 1
+        },
+        {
+          "rank": 3,
+          "name": "thanksgiving",
+          "posts": 622400,
+          "views": 2000000000,
+          "url": "https://www.tiktok.com/tag/thanksgiving",
+          "change": "new",
+          "streak": 1
+        }
+      ],
+      "songs": []
+    }
+  }
+}
